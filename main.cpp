@@ -30,7 +30,7 @@ class Cubie{
     }
 
     /*
-    starting front left corner
+    starting front left top corner
     [w, r, g, x, x, x]
     apply U
     [w, g, x, x, r, x]
@@ -38,6 +38,42 @@ class Cubie{
     [w, x, x, r, g, x]
     apply another U
     [w, x, r, g, x ,x]
+
+    starting front left bottom corner
+    [x, r, g, x, x, y] D ->
+    [x, g, x, x, r, y] D ->
+    [x, x, r, x, g, y]
+
+
+    //after some scratch paper
+    basically what is happening when we apply some move M we can just forget about the faces that run perp to the axis of rotation.
+    then we can look at the 4 remaining faces, two pairs of opposites. 
+    When we apply the move M what happens is that each pice movse from one pair to the other if its M' or M determines which of those faces it ends up on
+    A concrete example would be U move
+    so becuase The faces U and B are perp to the axis of rotation we can forget about them,
+    then we can look at the current piece
+     F   R   B   L 
+    [c1, c2, c3, c4] and move them down the line so itbecomes 
+    [c4, c1, c2, c3] The way we would applly a U' is to move the other way on the chain
+    [c1, c2, c3, c4]
+    I think I will define a list like this for each move type so we will have 6 move lists, im not doing slice moves yet.
+
+    ahh just realized that U and D are the same except D is a U'
+    Becaue the move is alwyas 90* clockwise relative to the face 
+    So L is just R'
+    and B is just F'
+
+    U list -> L B R F <- D list
+    R list -> F U B D <- L list
+    F list -> U R D L<- B list
+
+    //there's most def a way to make this even more abstract but I dont care about that right now.
+
+    //
+
+    There should be some way to ambiguously define a 90* turn because it doesnt matter wht orientation the cube is in. Basically
+    You could solve the cube by only doing R's if you just turned the whole cube before turning, idk if that makes sense.
+
 
     just noting my thoughts here, I see that white obviously stays on the top the whole time and the bottom face is never shown.
     This will hold for whatever move we do so if we do an R then the right face will never change and the left face will never show.
@@ -49,7 +85,7 @@ class Cubie{
 
     another thing, we can distinguish corners from edges (for when we do 3x3) by looking at howmany colors there are 2 = edge 3 = corner, 1 = middle 
     piece if I get brave enough for 4x4.
-    
+
     */
 
     private:
