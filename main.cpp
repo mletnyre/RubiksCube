@@ -20,11 +20,41 @@ class Cubie{
     all the cubies effected by the move.
     */
     public:
-    Cubie(){}
+    Cubie(char u, char r, char f, char l, char b, char d){
+        faces[0] = u;
+        faces[1] = r;
+        faces[2] = f;
+        faces[3] = l; 
+        faces[4] = b; 
+        faces[5] = d;
+    }
+
+    /*
+    starting front left corner
+    [w, r, g, x, x, x]
+    apply U
+    [w, g, x, x, r, x]
+    apply another U
+    [w, x, x, r, g, x]
+    apply another U
+    [w, x, r, g, x ,x]
+
+    just noting my thoughts here, I see that white obviously stays on the top the whole time and the bottom face is never shown.
+    This will hold for whatever move we do so if we do an R then the right face will never change and the left face will never show.
+    We can tell what piece this is by what isnt showing. 
+    [c, c, c, x, x, x] - ftr (front top right, c = color)
+    [c, c, x, x, c, x] - btr
+    [c, x, x, c, c, x] - btl
+    [c, x, c, c, x, x] - ftl
+
+    another thing, we can distinguish corners from edges (for when we do 3x3) by looking at howmany colors there are 2 = edge 3 = corner, 1 = middle 
+    piece if I get brave enough for 4x4.
+    
+    */
 
     private:
     char faces[6];
-}
+};
 
 class TwoByTwo{
     public:
