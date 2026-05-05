@@ -88,19 +88,79 @@ class Cubie{
 
     */
 
+    void U_Dp(){
+        //grab the L B R F elements from this cubie
+        char L, B, R, F, nL, nB, nR, nF;
+        L = getL();
+        B = getB();
+        R = getR();
+        F = getF();
+
+        nL = F;
+        nB = L;
+        nR = B;
+        nF = R;
+
+        setL(nL);
+        setB(nB);
+        setR(nR);
+        setF(nF);
+    }
+
+    void D_Up(){
+        //grab the L B R F elements from this cubie
+        char L, B, R, F, nL, nB, nR, nF;
+        L = getL();
+        B = getB();
+        R = getR();
+        F = getF();
+
+        nL = B;
+        nB = R;
+        nR = F;
+        nF = L;
+
+        setL(nL);
+        setB(nB);
+        setR(nR);
+        setF(nF);
+    }
+
+    void LR(){
+
+    }
+
+    void FB(){
+
+    }
+
+    char getU(){ return faces[0];}
+    char getR(){ return faces[1];}
+    char getF(){ return faces[2];}
+    char getL(){ return faces[3];}
+    char getB(){ return faces[4];}
+    char getD(){ return faces[5];}
+
+    void setU(char U){ faces[0] = U;}
+    void setR(char R){ faces[1] = R;}
+    void setF(char F){ faces[2] = F;}
+    void setL(char L){ faces[3] = L;}
+    void setB(char B){ faces[4] = B;}
+    void setD(char D){ faces[5] = D;}
+
     private:
+
     char faces[6];
 };
 
 class TwoByTwo{
     public:
-    TwoByTwo(){}
+    TwoByTwo(){
+    }
 
     private:
-    char cube[2][2][2];
     //        z  y  x
-    // index 0 on z is B
-    //index 1 on z 
+    Cubie cube[2][2][2];
 };
 
 int main(){
