@@ -1,6 +1,4 @@
-#include <iostream>
-
-class Cubie{
+#include <stdio.h>
     /*
     cubies are viewed from teh point of view of the person holding the cube,
     holding the cube in the traditional scrambling orientation, white on top and green facing you, red on the right. 
@@ -19,17 +17,8 @@ class Cubie{
     I have not though through these transformations but I should be able to write these into a function and then pass 
     all the cubies effected by the move.
     */
-    public:
-    Cubie(char u, char r, char f, char l, char b, char d){
-        faces[0] = u;
-        faces[1] = r;
-        faces[2] = f;
-        faces[3] = l; 
-        faces[4] = b; 
-        faces[5] = d;
-    }
 
-    /*
+        /*
     starting front left top corner
     [w, r, g, x, x, x]
     apply U
@@ -88,81 +77,83 @@ class Cubie{
 
     */
 
-    void U_Dp(){
-        //grab the L B R F elements from this cubie
-        char L, B, R, F, nL, nB, nR, nF;
-        L = getL();
-        B = getB();
-        R = getR();
-        F = getF();
-
-        nL = F;
-        nB = L;
-        nR = B;
-        nF = R;
-
-        setL(nL);
-        setB(nB);
-        setR(nR);
-        setF(nF);
-    }
-
-    void D_Up(){
-        //grab the L B R F elements from this cubie
-        char L, B, R, F, nL, nB, nR, nF;
-        L = getL();
-        B = getB();
-        R = getR();
-        F = getF();
-
-        nL = B;
-        nB = R;
-        nR = F;
-        nF = L;
-
-        setL(nL);
-        setB(nB);
-        setR(nR);
-        setF(nF);
-    }
-
-    void LR(){
-
-    }
-
-    void FB(){
-
-    }
-
-    char getU(){ return faces[0];}
-    char getR(){ return faces[1];}
-    char getF(){ return faces[2];}
-    char getL(){ return faces[3];}
-    char getB(){ return faces[4];}
-    char getD(){ return faces[5];}
-
-    void setU(char U){ faces[0] = U;}
-    void setR(char R){ faces[1] = R;}
-    void setF(char F){ faces[2] = F;}
-    void setL(char L){ faces[3] = L;}
-    void setB(char B){ faces[4] = B;}
-    void setD(char D){ faces[5] = D;}
-
-    private:
-
+typedef struct Cubie{
     char faces[6];
-};
+}Cubie;
 
-class TwoByTwo{
-    public:
-    TwoByTwo(){
-    }
-
-    private:
-    //        z  y  x
+typedef struct TwoByTwo{
     Cubie cube[2][2][2];
-};
+}TwoByTwo;
+
+void init_cubbie(Cubie* c, char u, char r, char f, char l, char b, char d){
+    c->faces[0] = u;
+    c->faces[1] = r;
+    c->faces[2] = f;
+    c->faces[3] = l; 
+    c->faces[4] = b; 
+    c->faces[5] = d;
+}
+
+char getU(Cubie* c){return c->faces[0];}
+char getR(Cubie* c){return c->faces[1];}
+char getF(Cubie* c){return c->faces[2];}
+char getL(Cubie* c){return c->faces[3];}
+char getB(Cubie* c){return c->faces[4];}
+char getD(Cubie* c){return c->faces[5];}
+
+char setU(Cubie* c, char v){c->faces[0] = v;}
+char setR(Cubie* c, char v){c->faces[1] = v;}
+char setF(Cubie* c, char v){c->faces[2] = v;}
+char setL(Cubie* c, char v){c->faces[3] = v;}
+char setB(Cubie* c, char v){c->faces[4] = v;}
+char setD(Cubie* c, char v){c->faces[5] = v;}
+
+void U_Dp(Cubie* c){
+    //grab the L B R F elements from this cubie
+    char L, B, R, F, nL, nB, nR, nF;
+    L = getL(c);
+    B = getB(c);
+    R = getR(c);
+    F = getF(c);
+
+    nL = F;
+    nB = L;
+    nR = B;
+    nF = R;
+
+    setL(c, nL);
+    setB(c, nB);
+    setR(c, nR);
+    setF(c, nF);
+}
+
+void D_Up(Cubie* c){
+    //grab the L B R F elements from this cubie
+    char L, B, R, F, nL, nB, nR, nF;
+    L = getL(c);
+    B = getB(c);
+    R = getR(c);
+    F = getF(c);
+
+    nL = B;
+    nB = R;
+    nR = F;
+    nF = L;
+
+    setL(c,nL);
+    setB(c,nB);
+    setR(c,nR);
+    setF(c,nF);
+}
+
+void LR(){
+
+}
+
+void FB(){
+
+}
 
 int main(){
-
+    printf("Test\n");
 }
