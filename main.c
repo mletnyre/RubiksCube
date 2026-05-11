@@ -203,7 +203,7 @@ void printCube(TwoByTwo* cube){
     for(z = 0; z < 2; z++){
         for(y = 0; y < 2; y++){
             for(x = 0; x < 2; x++){
-                printf("Cubie at locatoin (%d,%d,%d) looks like %c, %c, %c, %c, %c, %c",
+                printf("Cubie at locatoin (%d,%d,%d) looks like %c, %c, %c, %c, %c, %c\n",
                 x, y, z, 
                 cube->cube[z][y][x].faces[0],
                 cube->cube[z][y][x].faces[1],
@@ -261,6 +261,8 @@ TwoByTwo* init_2x2(){
             }
         }
     }
+    printf("Printing Cube before Return\n");
+    printCube(cube);
 }
 
 int main(){
