@@ -109,7 +109,7 @@ char setL(Cubie* c, char v){c->faces[3] = v;}
 char setB(Cubie* c, char v){c->faces[4] = v;}
 char setD(Cubie* c, char v){c->faces[5] = v;}
 
-void U_Dp(Cubie* c){
+void U_Dp(TwoByTwo* c){
     //grab the L B R F elements from this cubie
     char L, B, R, F, nL, nB, nR, nF;
     L = getL(c);
@@ -128,7 +128,7 @@ void U_Dp(Cubie* c){
     setF(c, nF);
 }
 
-void D_Up(Cubie* c){
+void D_Up(TwoByTwo* c){
     //grab the L B R F elements from this cubie
     char L, B, R, F, nL, nB, nR, nF;
     L = getL(c);
@@ -147,7 +147,7 @@ void D_Up(Cubie* c){
     setF(c,nF);
 }
 
-void L_Rp(Cubie* c){
+void L_Rp(TwoByTwo* c){
     char U, B, D, F, nU, nB, nD, nF;
     U = getU(c);
     B = getB(c);
@@ -165,14 +165,14 @@ void L_Rp(Cubie* c){
     setF(c, nF);
 }
 
-void R_Lp(Cubie* c){
+void R_Lp(TwoByTwo* c){
     L_Rp(c);
     L_Rp(c);
     L_Rp(c);
 }
 
 
-void F_Bp(Cubie* c){
+void F_Bp(TwoByTwo* c){
     char U, R, D, L, nU, nR, nD, nL;
     U = getU(c);
     R = getR(c);
@@ -191,7 +191,7 @@ void F_Bp(Cubie* c){
 }
 
 //someting a little silly
-void B_Fp(Cubie* c){
+void B_Fp(TwoByTwo* c){
     F_Bp(c);
     F_Bp(c);
     F_Bp(c);
@@ -267,6 +267,36 @@ TwoByTwo* init_2x2(){
 int main(){
     TwoByTwo* c = init_2x2();
     printCube(c);
+
+    while(1){
+        char inp = getchar();
+        printf("Applying move %c to the cube\n", inp);
+        switch (inp)
+        {
+        case 'r':
+            R_Lp(c);
+            break;
+        case 'l':
+            L_Rp(c);
+            break;
+        case 'u':
+            U_Dp(c);
+            break;
+        case 'd':
+            D_Up(c);
+            break;
+        case 'f':
+            F_Bp(c);
+            break;
+        case 'b':
+            B_Fp(c);
+            break;
+        default:
+            printf("Im not sure what to do with that input\n");
+            break;
+        }
+        printCube(c);
+    }
 
     printf("Exiting Program\n");
 }
