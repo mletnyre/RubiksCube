@@ -261,8 +261,7 @@ TwoByTwo* init_2x2(){
             }
         }
     }
-    printf("Printing Cube before Return\n");
-    printCube(cube);
+    return cube;
 }
 
 int main(){
