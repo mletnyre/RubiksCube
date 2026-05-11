@@ -147,15 +147,58 @@ void D_Up(Cubie* c){
     setF(c,nF);
 }
 
-void LR(){
+void L_Rp(Cubie* c){
+    char U, B, D, F, nU, nB, nD, nF;
+    U = getU(c);
+    B = getB(c);
+    D = getD(c);
+    F = getF(c);
 
+    nU = B;
+    nB = D;
+    nD = F;
+    nF = U;
+
+    setU(c, nU);
+    setB(c, nB);
+    setD(c, nD);
+    setF(c, nF);
 }
 
-void FB(){
+void R_Lp(Cubie* c){
+    L_Rp(c);
+    L_Rp(c);
+    L_Rp(c);
+}
 
+
+void F_Bp(Cubie* c){
+    char U, R, D, L, nU, nR, nD, nL;
+    U = getU(c);
+    R = getR(c);
+    D = getD(c);
+    L = getL(c);
+
+    nU = L;
+    nL = D;
+    nD = R;
+    nR = U;
+    
+    setU(c, nU);
+    setL(c, nL);
+    setR(c, nR);
+    setD(c, nD);
+}
+
+//someting a little silly
+void B_Fp(Cubie* c){
+    F_Bp(c);
+    F_Bp(c);
+    F_Bp(c);
 }
 
 void printCube(TwoByTwo* cube){
+    printf("Printing Cube\n");
     int x, y, z;
     for(z = 0; z < 2; z++){
         for(y = 0; y < 2; y++){
