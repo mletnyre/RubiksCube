@@ -70,3 +70,50 @@ TwoByTwo* init_2x2(){
     }
     return cube;
 }
+
+void PrintLayer(Cubie* Layer){
+    for(int i =0 ; i < 4; i++){
+        printf("Printing out Layer %c, %c, %c, %c, %c, %c\n",
+                Layer->faces[0],
+                Layer->faces[1],
+                Layer->faces[2],
+                Layer->faces[3],
+                Layer->faces[4],
+                Layer->faces[5]);
+
+            }
+            Layer++;
+}
+
+Cubie* getULayer(TwoByTwo* c){
+    Cubie* Layer = malloc(sizeof(Cubie)* 4);
+    int i, j;
+    for(i = 0; i < 2; i++){
+        for(j = 0; j < 2; j++){
+            Layer[i+j] = c->cube[j][0][i];
+        }
+    }
+    return Layer;
+}
+
+void U(TwoByTwo* c){
+    Cubie* ULayer;
+    ULayer = getULayer(c);
+    PrintLayer(ULayer);
+}
+
+void D(TwoByTwo* c){
+
+}
+void L(TwoByTwo* c){
+
+}
+void R(TwoByTwo* c){
+
+}
+void F(TwoByTwo* c){
+
+}
+void B(TwoByTwo* c){
+
+}

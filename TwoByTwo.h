@@ -11,4 +11,11 @@ TwoByTwo* init_2x2();
 
 void printCube(TwoByTwo* cube);
 
+void U(TwoByTwo* c);
+void D(TwoByTwo* c);
+void L(TwoByTwo* c);
+void R(TwoByTwo* c);
+void F(TwoByTwo* c);
+void B(TwoByTwo* c);
+
 #endif //TWOBYTWO_H
