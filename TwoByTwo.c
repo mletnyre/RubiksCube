@@ -10,7 +10,7 @@ void printCube(TwoByTwo* cube){
     for(z = 0; z < 2; z++){
         for(y = 0; y < 2; y++){
             for(x = 0; x < 2; x++){
-                printf("Cubie at locatoin (%d,%d,%d) looks like %c, %c, %c, %c, %c, %c\n",
+                printf("Cubie at location (%d,%d,%d) looks like %c, %c, %c, %c, %c, %c\n",
                 x, y, z, 
                 cube->cube[z][y][x].faces[0],
                 cube->cube[z][y][x].faces[1],
@@ -52,17 +52,17 @@ TwoByTwo* init_2x2(){
                     setL(c, 'o');
                     setR(c, 'x');
                 }
-                else if(y == 1){
+                else if(x == 1){
                     setL(c, 'x');
                     setR(c, 'r');
                 }
                 if(z == 0){
-                    setF(c, 'b');
-                    setB(c, 'x');
-                }
-                else if(y == 1){
+                    setB(c, 'b');
                     setF(c, 'x');
-                    setB(c, 'g');
+                }
+                else if(z == 1){
+                    setB(c, 'x');
+                    setF(c, 'g');
                 }
                 cube->cube[z][y][x] = *c;
             }
