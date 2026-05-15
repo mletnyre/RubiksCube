@@ -9,24 +9,36 @@
 int main(int argc, char *argv[]){
     printf("Arg count: %d\n", argc);
     if(argc < 2){
-        //no args, render screen
-        InitWindow(800,800,"Test");
-        SetTargetFPS(60);
-        
-        while (!WindowShouldClose())
-        {
+        InitWindow(800, 600, "Camera Move");
 
-            BeginDrawing();
+    Camera3D camera = { 0 };
+    camera.position = (Vector3){ 3.0f, 3.0f, 3.0f };
+    camera.target   = (Vector3){ 0.0f, 0.0f, 0.0f };
+    camera.up       = (Vector3){ 0.0f, 1.0f, 0.0f };
+    camera.fovy     = 45.0f;
+    camera.projection = CAMERA_PERSPECTIVE;
 
-            ClearBackground(RAYWHITE);
+    SetTargetFPS(60);
 
-            SetTargetFPS(60);
+    while (!WindowShouldClose())
+    {
+        UpdateCamera(&camera, CAMERA_FREE);
 
-            DrawText("It works!", 350, 280, 20, BLACK);
+        BeginDrawing();
+        ClearBackground(RAYWHITE);
 
-            EndDrawing();
+        BeginMode3D(camera);
 
-        }
+        DrawCube((Vector3){0, 0, 0}, 2, 2, 2, RED);
+        DrawCubeWires((Vector3){0, 0, 0}, 2, 2, 2, BLACK);
+
+        EndMode3D();
+
+        EndDrawing();
+    }
+
+        CloseWindow();
+
     }
     else if(argc == 2){
         char* arg = argv[1];
