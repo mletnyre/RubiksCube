@@ -18,7 +18,6 @@ void printCube(TwoByTwo* cube){
                 cube->cube[z][y][x].faces[3],
                 cube->cube[z][y][x].faces[4],
                 cube->cube[z][y][x].faces[5]);
-
             }
         }
     }
@@ -72,7 +71,7 @@ TwoByTwo* init_2x2(){
 }
 
 void PrintLayer(Cubie* Layer){
-    for(int i =0 ; i < 4; i++){
+    for(int i = 0; i < 4; i++){
         printf("Printing out Layer %c, %c, %c, %c, %c, %c\n",
                 Layer->faces[0],
                 Layer->faces[1],
@@ -103,7 +102,7 @@ void U(TwoByTwo* c){
 }
 
 void D(TwoByTwo* c){
-
+    
 }
 void L(TwoByTwo* c){
 
