@@ -101,16 +101,21 @@ int main(int argc, char *argv[]){
     camera.up       = (Vector3){ 0.0f, 1.0f, 0.0f };
     camera.fovy     = 45.0f;
     camera.projection = CAMERA_ORBITAL;
+        //no args, render screen
+        InitWindow(800,800,"Test");
+        SetTargetFPS(60);
+        
+        while (!WindowShouldClose())
+        {
 
-    SetTargetFPS(60);
+            BeginDrawing();
+
+            ClearBackground(RAYWHITE);
 
     while (!WindowShouldClose()){
         TwoByTwo* cube = init_2x2();
         UpdateCamera(&camera, CAMERA_FREE);
-
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-
+            SetTargetFPS(60);
         BeginMode3D(camera);
 
         DrawRubiksCube(cube);
@@ -120,7 +125,9 @@ int main(int argc, char *argv[]){
     }
 
     CloseWindow();
+            EndDrawing();
 
+        }
     }
     else if(argc == 2){
         char* arg = argv[1];
