@@ -18,25 +18,26 @@ int main(int argc, char *argv[]){
         camera.up       = (Vector3){ 0.0f, 1.0f, 0.0f };
         camera.fovy     = 45.0f;
 
-        BeginDrawing();
-
-        UpdateCamera(&camera, CAMERA_FREE);
-
-    while (!WindowShouldClose()){
-        BeginMode3D(camera);
-
-        DrawCube((Vector3){0, 0, 0}, 2, 2, 2, RED);
-        DrawCubeWires((Vector3){0, 0, 0}, 2, 2, 2, BLACK);
-
-        EndMode3D();
-
-        EndDrawing();
         
-    }
+        
+        while (!WindowShouldClose()){
+            ClearBackground(RAYWHITE); // This removes the previous frame
+            BeginDrawing();
+            UpdateCamera(&camera, CAMERA_FREE);
+            BeginMode3D(camera);
 
-    CloseWindow();
-    EndDrawing();
-    return 0;
+            DrawCube((Vector3){0, 0, 0}, 2, 2, 2, RED);
+            DrawCubeWires((Vector3){0, 0, 0}, 2, 2, 2, BLACK);
+
+            EndMode3D();
+
+            EndDrawing();
+            
+        }
+
+        CloseWindow();
+        EndDrawing();
+        return 0;
     }
     
     else if(argc == 2){
