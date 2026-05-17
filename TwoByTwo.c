@@ -40,12 +40,12 @@ TwoByTwo* init_2x2(){
                 */
                 Cubie* c = malloc(sizeof(Cubie));
                 if(y == 0){
-                    setU(c, 'w');
+                    setU(c, 'y');
                     setD(c, 'x');
                 }
                 else if(y == 1){
                     setU(c, 'x');
-                    setD(c, 'y');
+                    setD(c, 'w');
                 }
                 if(x == 0){
                     setL(c, 'o');
