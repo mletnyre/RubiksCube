@@ -18,4 +18,6 @@ void R(TwoByTwo* c);
 void F(TwoByTwo* c);
 void B(TwoByTwo* c);
 
+void updateSingleCubieU(Cubie* cubie);
+
 #endif //TWOBYTWO_H

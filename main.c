@@ -76,7 +76,7 @@ int DrawRubiksCube(TwoByTwo* Cube){
 int main(int argc, char *argv[]){
     printf("Arg count: %d\n", argc);
     if(argc < 2){
-        InitWindow(1200, 1000, "Rubik's Cube");
+        InitWindow(2000, 1500, "Rubik's Cube");
         SetTargetFPS(60);
         
         Camera3D camera = { 0 };

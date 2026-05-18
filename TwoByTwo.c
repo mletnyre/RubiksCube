@@ -104,6 +104,7 @@ void RotateCubiesU(Cubie *ULayer[4]){
 }
 
 void updateSingleCubieU(Cubie* cubie){
+    printf("Cubie in %c %c %c %c\n", cubie->faces[1],cubie->faces[2],cubie->faces[3],cubie->faces[4]);
     char tmp;
     //cubie->faces[0];
     tmp = cubie->faces[1];
@@ -112,6 +113,7 @@ void updateSingleCubieU(Cubie* cubie){
     cubie->faces[3] = cubie->faces[4];
     cubie->faces[4] = tmp;
     //cubie->faces[5];
+    printf("Cubie out %c %c %c %c\n", cubie->faces[1],cubie->faces[2],cubie->faces[3],cubie->faces[4]);
 }
 
 void UpdateCubies(Cubie* ULayer[4]){
@@ -130,11 +132,12 @@ void UpdateCubies(Cubie* ULayer[4]){
 
 void U(TwoByTwo* c){
     Cubie* ULayer[4];
+
     getULayer(c, ULayer);
     PrintLayer(ULayer);
 
-    RotateCubiesU(ULayer);
     UpdateCubies(ULayer);
+    RotateCubiesU(ULayer);
 }
 
 void D(TwoByTwo* c){
