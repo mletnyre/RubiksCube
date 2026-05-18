@@ -85,11 +85,16 @@ int main(int argc, char *argv[]){
         camera.up       = (Vector3){ 0.0f, 1.0f, 0.0f };
         camera.fovy     = 45.0f;
 
-        TwoByTwo* Cube = init_2x2();
+        TwoByTwo* cube  = init_2x2();
 
         
         
         while (!WindowShouldClose()){
+
+            if (IsKeyDown(KEY_U)){
+                U(cube);
+            }
+
             BeginDrawing();
 
             ClearBackground(LIGHTGRAY);
@@ -97,7 +102,7 @@ int main(int argc, char *argv[]){
             UpdateCamera(&camera, CAMERA_FREE);
             BeginMode3D(camera);
 
-            DrawRubiksCube(Cube);
+            DrawRubiksCube(cube);
 
             EndMode3D();
 
@@ -115,8 +120,8 @@ int main(int argc, char *argv[]){
         if(strcmp(arg, "-d") == 0){
             //development mode
             TwoByTwo* c = init_2x2();
-            printCube(c);
             while(1){
+                printCube(c);
                 char inp = getchar();
                 switch (inp)
                 {
