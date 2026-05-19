@@ -3,20 +3,25 @@
 #include "Cubie.h"
 #include "TwoByTwo.h"
 
-int main(){
-    Cubie* cubie;
-    init_cubbie(cubie, 'x','r','g','x','x','w');
-    updateSingleCubieU(cubie);
-    char f,r,l,b;
+void printCubie(Cubie* cubie){
+    char r,f,l,b;
     r = cubie->faces[1];
     f = cubie->faces[2];
     l = cubie->faces[3];
     b = cubie->faces[4];
-    if(r == 'x' && f == 'r' && l == 'g' && b == 'x'){
-        printf("SUCCESS!\n");
-    }
-    else{
-        printf("SOMETHING WRONG\n");
-    }
+    printf("Cubie: %c,%c,%c,%c\n",r,f,l,b);
+}
+
+int main(){
+    Cubie* cubie;
+    init_cubbie(cubie, 'x','x','x','o','b','w');
+    updateSingleCubieU(cubie);
+    printCubie(cubie);
+    updateSingleCubieU(cubie);
+    printCubie(cubie);
+    updateSingleCubieU(cubie);
+    printCubie(cubie);
+    updateSingleCubieU(cubie);
+    printCubie(cubie);
     return 0;
 }

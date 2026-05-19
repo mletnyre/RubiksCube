@@ -25,12 +25,11 @@ int DrawRubiksCube(TwoByTwo* Cube){
     char face;
     Color faceColor;
     Vector3 pos;
+    DrawCubeWires((Vector3){x, y, z}, 1, 1, 1, GRAY);
+    DrawCube((Vector3){x, y, z}, 1, 1, 1, BLACK);
     for(x=0;x<2;x++){
         for(y=0;y<2;y++){
             for(z=0;z<2;z++){
-
-                DrawCube((Vector3){x, y, z}, 1, 1, 1, BLACK);
-                DrawCubeWires((Vector3){x, y, z}, 1, 1, 1, GRAY);
                 Cubie cubie = Cube->cube[z][y][x];
                 for(side=0;side<6;side++){
                     pos.x = x; pos.y = y; pos.z = z;
@@ -83,15 +82,16 @@ int main(int argc, char *argv[]){
         camera.position = (Vector3){ 3.0f, 3.0f, 3.0f };
         camera.target   = (Vector3){ 0.0f, 0.0f, 0.0f };
         camera.up       = (Vector3){ 0.0f, 1.0f, 0.0f };
-        camera.fovy     = 45.0f;
+        camera.fovy     = 90.0f;
 
         TwoByTwo* cube  = init_2x2();
+        printCube(cube);
 
         
         
         while (!WindowShouldClose()){
 
-            if (IsKeyDown(KEY_U)){
+            if (IsKeyPressed(KEY_U)){
                 U(cube);
             }
 
