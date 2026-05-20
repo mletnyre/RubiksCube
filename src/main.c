@@ -75,6 +75,7 @@ int DrawRubiksCube(TwoByTwo* Cube){
 int main(int argc, char *argv[]){
     printf("Arg count: %d\n", argc);
     if(argc < 2){
+        SetConfigFlags(FLAG_WINDOW_RESIZABLE);
         InitWindow(2000, 1500, "Rubik's Cube");
         SetTargetFPS(60);
         
