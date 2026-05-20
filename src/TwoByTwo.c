@@ -120,6 +120,13 @@ void getFLayer(TwoByTwo* c, Cubie* layer[4]){
     layer[3] = &c->cube[1][0][1];
 }
 
+void getBLayer(TwoByTwo* c, Cubie* layer[4]){
+    layer[0] = &c->cube[0][0][0];
+    layer[1] = &c->cube[0][1][0];
+    layer[2] = &c->cube[0][1][1];
+    layer[3] = &c->cube[0][0][1];
+}
+
 void RotateCubiesU(TwoByTwo* cube){
     //printf("Rotating Cubies U\n");
     Cubie tmp0 = cube->cube[0][1][0];
@@ -183,6 +190,18 @@ void RotateCubiesF(TwoByTwo* cube){
     cube->cube[1][0][1] = tmp2; 
 }
 
+void RotateCubiesB(TwoByTwo* cube){
+    Cubie tmp0 = cube->cube[0][0][0];
+    Cubie tmp1 = cube->cube[0][1][0];
+    Cubie tmp2 = cube->cube[0][1][1];
+    Cubie tmp3 = cube->cube[0][0][1]; 
+
+    cube->cube[0][0][0] = tmp1;
+    cube->cube[0][1][0] = tmp2;
+    cube->cube[0][1][1] = tmp3;
+    cube->cube[0][0][1] = tmp0; 
+}
+
 void updateSingleCubieU(Cubie* cubie){
     //printf("Cubie in %c %c %c %c\n", cubie->faces[1],cubie->faces[2],cubie->faces[3],cubie->faces[4]);
     char rtmp = cubie->faces[1];
@@ -241,6 +260,17 @@ void updateSingleCubieF(Cubie* cubie){
     cubie->faces[3] = dtmp;
 }
 
+void updateSingleCubieB(Cubie* cubie){
+    char dtmp = cubie->faces[0];
+    char rtmp = cubie->faces[1];
+    char ltmp = cubie->faces[3];
+    char utmp = cubie->faces[5];
+    cubie->faces[0] = ltmp;
+    cubie->faces[1] = dtmp;
+    cubie->faces[5] = rtmp;
+    cubie->faces[3] = utmp;
+}
+
 void UpdateCubies(Cubie* Layer[4], char l){
     //printf("Updating Cubies\n");
     int i;
@@ -250,7 +280,7 @@ void UpdateCubies(Cubie* Layer[4], char l){
         if(l == 'L'){updateSingleCubieL(Layer[i]);}
         if(l == 'R'){updateSingleCubieR(Layer[i]);}
         if(l == 'F'){updateSingleCubieF(Layer[i]);}
-        //if(l == 'B'){updateSingleCubieB(Layer[i]);}
+        if(l == 'B'){updateSingleCubieB(Layer[i]);}
 
     }
     //printf("Done updating cubies\n");
@@ -288,5 +318,8 @@ void F(TwoByTwo* c){
     RotateCubiesF(c);
 }
 void B(TwoByTwo* c){
-
+    Cubie* BLayer[4];
+    getBLayer(c, BLayer);
+    UpdateCubies(BLayer, 'B');
+    RotateCubiesB(c);
 }
