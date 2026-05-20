@@ -93,6 +93,10 @@ int main(int argc, char *argv[]){
 
         if (IsKeyPressed(KEY_U)){U(cube);}
         if (IsKeyPressed(KEY_D)){D(cube);}
+        if (IsKeyPressed(KEY_L)){L(cube);}
+        if (IsKeyPressed(KEY_R)){R(cube);}
+        if (IsKeyPressed(KEY_F)){F(cube);}
+        if (IsKeyPressed(KEY_B)){B(cube);}
 
         BeginDrawing();
 
