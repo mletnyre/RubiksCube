@@ -113,6 +113,13 @@ void getRLayer(TwoByTwo* c, Cubie* layer[4]){
     layer[3] = &c->cube[0][1][1];
 }
 
+void getFLayer(TwoByTwo* c, Cubie* layer[4]){
+    layer[0] = &c->cube[1][0][0];
+    layer[1] = &c->cube[1][1][0];
+    layer[2] = &c->cube[1][1][1];
+    layer[3] = &c->cube[1][0][1];
+}
+
 void RotateCubiesU(TwoByTwo* cube){
     //printf("Rotating Cubies U\n");
     Cubie tmp0 = cube->cube[0][1][0];
@@ -164,6 +171,18 @@ void RotateCubiesR(TwoByTwo* cube){
     cube->cube[0][1][1] = tmp2;
 }
 
+void RotateCubiesF(TwoByTwo* cube){
+    Cubie tmp0 = cube->cube[1][0][0];
+    Cubie tmp1 = cube->cube[1][1][0];
+    Cubie tmp2 = cube->cube[1][1][1];
+    Cubie tmp3 = cube->cube[1][0][1]; 
+
+    cube->cube[1][0][0] = tmp3;
+    cube->cube[1][1][0] = tmp0;
+    cube->cube[1][1][1] = tmp1;
+    cube->cube[1][0][1] = tmp2; 
+}
+
 void updateSingleCubieU(Cubie* cubie){
     //printf("Cubie in %c %c %c %c\n", cubie->faces[1],cubie->faces[2],cubie->faces[3],cubie->faces[4]);
     char rtmp = cubie->faces[1];
@@ -210,6 +229,18 @@ void updateSingleCubieR(Cubie* cubie){
     cubie->faces[5] = ftmp;
     cubie->faces[4] = utmp;
 }
+
+void updateSingleCubieF(Cubie* cubie){
+    char dtmp = cubie->faces[0];
+    char rtmp = cubie->faces[1];
+    char ltmp = cubie->faces[3];
+    char utmp = cubie->faces[5];
+    cubie->faces[0] = rtmp;
+    cubie->faces[1] = utmp;
+    cubie->faces[5] = ltmp;
+    cubie->faces[3] = dtmp;
+}
+
 void UpdateCubies(Cubie* Layer[4], char l){
     //printf("Updating Cubies\n");
     int i;
@@ -218,7 +249,7 @@ void UpdateCubies(Cubie* Layer[4], char l){
         if(l == 'D'){updateSingleCubieD(Layer[i]);}
         if(l == 'L'){updateSingleCubieL(Layer[i]);}
         if(l == 'R'){updateSingleCubieR(Layer[i]);}
-        //if(l == 'F'){updateSingleCubieF(Layer[i]);}
+        if(l == 'F'){updateSingleCubieF(Layer[i]);}
         //if(l == 'B'){updateSingleCubieB(Layer[i]);}
 
     }
@@ -251,7 +282,10 @@ void R(TwoByTwo* c){
     RotateCubiesR(c);
 }
 void F(TwoByTwo* c){
-
+    Cubie* FLayer[4];
+    getFLayer(c, FLayer);
+    UpdateCubies(FLayer, 'F');
+    RotateCubiesF(c);
 }
 void B(TwoByTwo* c){
 
