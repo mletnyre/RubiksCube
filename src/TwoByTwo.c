@@ -83,6 +83,13 @@ void PrintLayer(Cubie** Layer){
             }
 }
 
+void getDLayer(TwoByTwo* c, Cubie* layer[4]){
+    layer[0] = &c->cube[0][0][0];
+    layer[1] = &c->cube[0][0][1];
+    layer[2] = &c->cube[1][0][1];
+    layer[3] = &c->cube[1][0][0];
+}
+
 void getULayer(TwoByTwo* c, Cubie* layer[4]){
     printf("Getting U Layer\n");
     layer[0] = &c->cube[0][1][0];
@@ -90,6 +97,18 @@ void getULayer(TwoByTwo* c, Cubie* layer[4]){
     layer[2] = &c->cube[1][1][1];
     layer[3] = &c->cube[1][1][0];
     printf("Got U Layer\n");
+}
+
+void RotateCubiesD(TwoByTwo* cube){
+    Cubie tmp0 = cube->cube[0][0][0];
+    Cubie tmp1 = cube->cube[0][0][1];
+    Cubie tmp2 = cube->cube[1][0][1];
+    Cubie tmp3 = cube->cube[1][0][0]; 
+
+    cube->cube[0][0][0] = tmp1;
+    cube->cube[0][0][1] = tmp2;
+    cube->cube[1][0][1] = tmp3;
+    cube->cube[1][0][0] = tmp0;
 }
 
 void RotateCubiesU(TwoByTwo* cube){
@@ -120,11 +139,25 @@ void updateSingleCubieU(Cubie* cubie){
     //printf("Cubie out %c %c %c %c\n", cubie->faces[1],cubie->faces[2],cubie->faces[3],cubie->faces[4]);
 }
 
-void UpdateCubies(Cubie* ULayer[4]){
+void updateSingleCubieD(Cubie* cubie){
+    //printf("Cubie in %c %c %c %c\n", cubie->faces[1],cubie->faces[2],cubie->faces[3],cubie->faces[4]);
+    char rtmp = cubie->faces[1];
+    char ftmp = cubie->faces[2];
+    char ltmp = cubie->faces[3];
+    char btmp = cubie->faces[4];
+    cubie->faces[1] = ftmp;
+    cubie->faces[2] = ltmp;
+    cubie->faces[3] = btmp;
+    cubie->faces[4] = rtmp;
+    //printf("Cubie out %c %c %c %c\n", cubie->faces[1],cubie->faces[2],cubie->faces[3],cubie->faces[4]);
+}
+
+void UpdateCubies(Cubie* Layer[4], char l){
     //printf("Updating Cubies\n");
     int i;
     for(i = 0; i < 4; i ++){
-        updateSingleCubieU(ULayer[i]);
+        if(l == 'U'){updateSingleCubieU(Layer[i]);}
+        if(l == 'D'){updateSingleCubieD(Layer[i]);}
 
     }
     //printf("Done updating cubies\n");
@@ -132,18 +165,16 @@ void UpdateCubies(Cubie* ULayer[4]){
 
 void U(TwoByTwo* c){
     Cubie* ULayer[4];
-
     getULayer(c, ULayer);
-    PrintLayer(ULayer);
-
-    UpdateCubies(ULayer);
-    //printCube(c);
+    UpdateCubies(ULayer, 'U');
     RotateCubiesU(c);
-    //printCube(c);
 }
 
 void D(TwoByTwo* c){
-    
+    Cubie* DLayer[4];
+    getDLayer(c, DLayer);
+    UpdateCubies(DLayer, 'D');
+    RotateCubiesD(c);
 }
 void L(TwoByTwo* c){
 

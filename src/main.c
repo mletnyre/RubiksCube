@@ -91,9 +91,8 @@ int main(int argc, char *argv[]){
     
     while (!WindowShouldClose()){
 
-        if (IsKeyPressed(KEY_U)){
-            U(cube);
-        }
+        if (IsKeyPressed(KEY_U)){U(cube);}
+        if (IsKeyPressed(KEY_D)){D(cube);}
 
         BeginDrawing();
 
