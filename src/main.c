@@ -74,83 +74,46 @@ int DrawRubiksCube(TwoByTwo* Cube){
 
 int main(int argc, char *argv[]){
     printf("Arg count: %d\n", argc);
-    if(argc < 2){
-        SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-        InitWindow(2000, 1500, "Rubik's Cube");
-        SetTargetFPS(60);
-        
-        Camera3D camera = { 0 };
-        camera.position = (Vector3){ 3.0f, 3.0f, 3.0f };
-        camera.target   = (Vector3){ 0.0f, 0.0f, 0.0f };
-        camera.up       = (Vector3){ 0.0f, 1.0f, 0.0f };
-        camera.fovy     = 90.0f;
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    InitWindow(2000, 1500, "Rubik's Cube");
+    SetTargetFPS(60);
+    
+    Camera3D camera = { 0 };
+    camera.position = (Vector3){ 3.0f, 3.0f, 3.0f };
+    camera.target   = (Vector3){ 0.0f, 0.0f, 0.0f };
+    camera.up       = (Vector3){ 0.0f, 1.0f, 0.0f };
+    camera.fovy     = 90.0f;
 
-        TwoByTwo* cube  = init_2x2();
-        printCube(cube);
+    TwoByTwo* cube  = init_2x2();
+    printCube(cube);
 
-        
-        
-        while (!WindowShouldClose()){
+    
+    
+    while (!WindowShouldClose()){
 
-            if (IsKeyPressed(KEY_U)){
-                U(cube);
-            }
-
-            BeginDrawing();
-
-            ClearBackground(LIGHTGRAY);
-            
-            UpdateCamera(&camera, CAMERA_FREE);
-            BeginMode3D(camera);
-
-            DrawRubiksCube(cube);
-
-            EndMode3D();
-
-            EndDrawing();
-            
+        if (IsKeyPressed(KEY_U)){
+            U(cube);
         }
 
-        CloseWindow();
-        return 0;
+        BeginDrawing();
+
+        ClearBackground(LIGHTGRAY);
+        
+        UpdateCamera(&camera, CAMERA_FREE);
+        BeginMode3D(camera);
+
+        DrawRubiksCube(cube);
+
+        EndMode3D();
+
+        EndDrawing();
+        
     }
-    
-    else if(argc == 2){
-        char* arg = argv[1];
-        printf("arg: %c\n", arg);
-        if(strcmp(arg, "-d") == 0){
-            //development mode
-            TwoByTwo* c = init_2x2();
-            while(1){
-                printCube(c);
-                char inp = getchar();
-                switch (inp)
-                {
-                case 'r':
-                    R(c);
-                    break;
-                case 'l':
-                    L(c);
-                    break;
-                case 'f':
-                    F(c);
-                    break;
-                case 'b':
-                    B(c);
-                    break;
-                case 'u':
-                    U(c);
-                    break;
-                case 'd':
-                    D(c);
-                    break;
-                default:
-                    break;
-                }
-            }
-        }
-    }
-    
+
+    CloseWindow();
+    return 0;
+
+
     printf("Exiting Program\n");
     return 0; 
 }

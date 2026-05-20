@@ -102,7 +102,7 @@ void RotateCubiesU(TwoByTwo* cube){
     cube->cube[0][1][0] = tmp3;
     cube->cube[0][1][1] = tmp0;
     cube->cube[1][1][1] = tmp1;
-    cube->cube[0][1][1] = tmp2;
+    cube->cube[1][1][0] = tmp2;
 
     //printf("Done Rotating Cubies U\n");
 }
