@@ -3,6 +3,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define UP 5
+#define RIGHT 1
+#define FRONT 2
+#define LEFT 3
+#define BACK 4
+#define DOWN 0
+
+
 
 void printCube(TwoByTwo* cube){
     printf("Printing Cube\n");
@@ -12,12 +20,12 @@ void printCube(TwoByTwo* cube){
             for(x = 0; x < 2; x++){
                 printf("Cubie at location (%d,%d,%d) looks like %c, %c, %c, %c, %c, %c\n",
                 x, y, z, 
-                cube->cube[z][y][x].faces[0],
-                cube->cube[z][y][x].faces[1],
-                cube->cube[z][y][x].faces[2],
-                cube->cube[z][y][x].faces[3],
-                cube->cube[z][y][x].faces[4],
-                cube->cube[z][y][x].faces[5]);
+                cube->cube[z][y][x].faces[UP],
+                cube->cube[z][y][x].faces[RIGHT],
+                cube->cube[z][y][x].faces[FRONT],
+                cube->cube[z][y][x].faces[LEFT],
+                cube->cube[z][y][x].faces[BACK],
+                cube->cube[z][y][x].faces[DOWN]);
             }
         }
     }
@@ -73,12 +81,12 @@ TwoByTwo* init_2x2(){
 void PrintLayer(Cubie** Layer){
     for(int i = 0; i < 4; i++){
         printf("Printing out Layer %c, %c, %c, %c, %c, %c\n",
-                Layer[i]->faces[0],
-                Layer[i]->faces[1],
-                Layer[i]->faces[2],
-                Layer[i]->faces[3],
-                Layer[i]->faces[4],
-                Layer[i]->faces[5]);
+                Layer[i]->faces[UP],
+                Layer[i]->faces[RIGHT],
+                Layer[i]->faces[FRONT],
+                Layer[i]->faces[LEFT],
+                Layer[i]->faces[BACK],
+                Layer[i]->faces[DOWN]);
 
             }
 }
@@ -250,14 +258,14 @@ void updateSingleCubieR(Cubie* cubie){
 }
 
 void updateSingleCubieF(Cubie* cubie){
-    char dtmp = cubie->faces[0];
-    char rtmp = cubie->faces[1];
-    char ltmp = cubie->faces[3];
-    char utmp = cubie->faces[5];
-    cubie->faces[0] = rtmp;
-    cubie->faces[1] = utmp;
-    cubie->faces[5] = ltmp;
-    cubie->faces[3] = dtmp;
+    char dtmp = cubie->faces[DOWN];
+    char rtmp = cubie->faces[RIGHT];
+    char ltmp = cubie->faces[LEFT];
+    char utmp = cubie->faces[UP];
+    cubie->faces[DOWN] = rtmp;
+    cubie->faces[RIGHT] = utmp;
+    cubie->faces[UP] = ltmp;
+    cubie->faces[LEFT] = dtmp;
 }
 
 void updateSingleCubieB(Cubie* cubie){
