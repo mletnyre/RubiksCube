@@ -72,6 +72,32 @@ int DrawRubiksCube(TwoByTwo* Cube){
     return 0;
 }
 
+void preformMove(int m, int d, TwoByTwo* cube){
+    switch (m)
+    {
+    case 0:D(cube);break;
+    case 1:L(cube);break;
+    case 2:R(cube);break;
+    case 3:F(cube);break;
+    case 4:B(cube);break;
+    case 5:U(cube);break;
+    }
+    if(d == 1){ preformMove(m, 0, cube);}
+}
+
+void Scramble(TwoByTwo* cube){
+    printf("Scrambling\n");
+    int moves = 9; //wca scramble moves
+    int m;
+    int d;
+    for(int i = 0; i < moves; i++){
+        printf("Move: %d\n",i);
+        m = (rand() % 6);
+        d = (rand() % 10);
+        preformMove(m, d, cube);
+    }
+}
+
 int main(int argc, char *argv[]){
     printf("Arg count: %d\n", argc);
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
@@ -97,6 +123,7 @@ int main(int argc, char *argv[]){
         if (IsKeyPressed(KEY_R)){R(cube);}
         if (IsKeyPressed(KEY_F)){F(cube);}
         if (IsKeyPressed(KEY_B)){B(cube);}
+        if (IsKeyPressed(KEY_Q)){Scramble(cube);}
 
         BeginDrawing();
 
