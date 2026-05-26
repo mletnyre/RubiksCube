@@ -4,7 +4,7 @@ project(Cube C)
 add_executable(cube
     src/main.c
     src/Cubie.c
-    src/TwoByTwo.c
+    src/RubiksCube.c
 )
 
 target_include_directories(cube PRIVATE include)

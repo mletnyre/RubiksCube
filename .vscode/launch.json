@@ -6,7 +6,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\cube.exe",
-            "args": ["-d"],
+            "args": ["-n 3"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

@@ -7,9 +7,9 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "src/main.c",
-                "src/Cubie.c",
-                "src/TwoByTwo.c",
+                "main.c",
+                "Cubie.c",
+                "RubiksCube.c",
                 "-o",
                 "cube.exe",
                 "-lraylib",

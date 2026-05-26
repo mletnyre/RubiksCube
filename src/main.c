@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <raylib.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "Cubie.h"
-#include "TwoByTwo.h"
+#include "RubiksCube.h"
 
 Color CharToColor(char face){
     switch (face)
@@ -20,16 +21,17 @@ Color CharToColor(char face){
 }
 
 
-int DrawRubiksCube(TwoByTwo* Cube){
+int DrawRubiksCube(RubiksCube* Cube){
     int x,y,z,side;
     char face;
     Color faceColor;
     Vector3 pos;
+    int size = Cube->size;
     DrawCubeWires((Vector3){x, y, z}, 1, 1, 1, GRAY);
     DrawCube((Vector3){x, y, z}, 1, 1, 1, BLACK);
-    for(x=0;x<2;x++){
-        for(y=0;y<2;y++){
-            for(z=0;z<2;z++){
+    for(x=0;x<size;x++){
+        for(y=0;y<size;y++){
+            for(z=0;z<size;z++){
                 Cubie cubie = Cube->cube[z][y][x];
                 for(side=0;side<6;side++){
                     pos.x = x; pos.y = y; pos.z = z;
@@ -72,7 +74,7 @@ int DrawRubiksCube(TwoByTwo* Cube){
     return 0;
 }
 
-void preformMove(int m, int d, TwoByTwo* cube){
+void preformMove(int m, int d, RubiksCube* cube){
     switch (m)
     {
     case 0:D(cube);break;
@@ -85,7 +87,7 @@ void preformMove(int m, int d, TwoByTwo* cube){
     if(d == 1){ preformMove(m, 0, cube);}
 }
 
-void Scramble(TwoByTwo* cube){
+void Scramble(RubiksCube* cube){
     printf("Scrambling\n");
     int moves = 9; //wca scramble moves
     int m;
@@ -99,7 +101,7 @@ void Scramble(TwoByTwo* cube){
 }
 
 int main(int argc, char *argv[]){
-    printf("Arg count: %d\n", argc);
+    int size;
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(2000, 1500, "Rubik's Cube");
     SetTargetFPS(60);
@@ -110,7 +112,24 @@ int main(int argc, char *argv[]){
     camera.up       = (Vector3){ 0.0f, 1.0f, 0.0f };
     camera.fovy     = 90.0f;
 
-    TwoByTwo* cube  = init_2x2();
+    //this is largly inspired from the man pages on getopt
+    int flags, opt, nsecs, tfind;
+    flags, nsecs, tfind = 0; 
+    while ((opt = getopt(argc, argv, "n:")) != -1){
+        switch(opt){
+            case 'n':
+            nsecs = atoi(optarg);
+            tfind = 1;
+            break;
+        default:
+            fprintf(stderr, "Usage %s [-n cubeSize]", argv[0]);
+            exit(EXIT_FAILURE);
+        }
+    }
+    
+    size = nsecs;
+    
+    RubiksCube* cube  = init_nxn(size);
     printCube(cube);
 
     

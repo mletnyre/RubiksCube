@@ -1,4 +1,4 @@
-#include "TwoByTwo.h"
+#include "RubiksCube.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -12,12 +12,13 @@
 
 
 
-void printCube(TwoByTwo* cube){
+void printCube(RubiksCube* cube){
     printf("Printing Cube\n");
     int x, y, z;
-    for(z = 0; z < 2; z++){
-        for(y = 0; y < 2; y++){
-            for(x = 0; x < 2; x++){
+    int size = cube->size;
+    for(z = 0; z < size; z++){
+        for(y = 0; y < size; y++){
+            for(x = 0; x < size; x++){
                 printf("Cubie at location (%d,%d,%d) looks like %c, %c, %c, %c, %c, %c\n",
                 x, y, z, 
                 cube->cube[z][y][x].faces[UP],
@@ -31,12 +32,21 @@ void printCube(TwoByTwo* cube){
     }
 }
 
-TwoByTwo* init_2x2(){
-    TwoByTwo* cube = malloc(sizeof(TwoByTwo));
+RubiksCube* init_nxn(int size){
     int x, y, z;
-    for(z = 0; z < 2; z++){
-        for(y = 0; y < 2; y++){
-            for(x = 0; x < 2; x++){
+    RubiksCube *cube;
+    printf("Making Rubik's cube of size n = %d\n", size);
+    cube->cube = malloc(size * sizeof(Cubie**));
+    for(z = 0; z < size; z++){
+        cube->cube[z] = malloc(size * sizeof(int *));
+        for(y = 0; y < size; y++){
+            cube->cube[z][y] = malloc(size * sizeof(Cubie));
+         }
+    }
+    cube->size = size;
+    for(z = 0; z < size; z++){
+        for(y = 0; y < size; y++){
+            for(x = 0; x < size; x++){
                 printf("Initalizing cubie at location (%d,%d,%d)\n", x, y, z);
                 /*
                 if y is 0 then the u face is white
@@ -46,30 +56,42 @@ TwoByTwo* init_2x2(){
                 if z is 0 the b face is blue
                 if z is 1 the f face is green
                 */
-                Cubie* c = malloc(sizeof(Cubie));
+                Cubie *c = malloc(sizeof(Cubie));
                 if(y == 0){
                     setU(c, 'y');
                     setD(c, 'x');
                 }
-                else if(y == 1){
+                else if(y == size-1){
                     setU(c, 'x');
                     setD(c, 'w');
+                }
+                else{
+                    setU(c, 'x');
+                    setD(c, 'x'); 
                 }
                 if(x == 0){
                     setL(c, 'o');
                     setR(c, 'x');
                 }
-                else if(x == 1){
+                else if(x == size-1){
                     setL(c, 'x');
                     setR(c, 'r');
+                }
+                else{
+                    setL(c, 'x');
+                    setR(c, 'x'); 
                 }
                 if(z == 0){
                     setB(c, 'b');
                     setF(c, 'x');
                 }
-                else if(z == 1){
+                else if(z == size-1){
                     setB(c, 'x');
                     setF(c, 'g');
+                }
+                else{
+                    setB(c, 'x');
+                    setF(c, 'x');
                 }
                 cube->cube[z][y][x] = *c;
             }
@@ -91,7 +113,7 @@ void PrintLayer(Cubie** Layer){
             }
 }
 
-void getULayer(TwoByTwo* c, Cubie* layer[4]){
+void getULayer(RubiksCube* c, Cubie* layer[4]){
     printf("Getting U Layer\n");
     layer[0] = &c->cube[0][1][0];
     layer[1] = &c->cube[0][1][1];
@@ -100,42 +122,42 @@ void getULayer(TwoByTwo* c, Cubie* layer[4]){
     printf("Got U Layer\n");
 }
 
-void getDLayer(TwoByTwo* c, Cubie* layer[4]){
+void getDLayer(RubiksCube* c, Cubie* layer[4]){
     layer[0] = &c->cube[0][0][0];
     layer[1] = &c->cube[0][0][1];
     layer[2] = &c->cube[1][0][1];
     layer[3] = &c->cube[1][0][0];
 }
 
-void getLLayer(TwoByTwo* c, Cubie* layer[4]){
+void getLLayer(RubiksCube* c, Cubie* layer[4]){
     layer[0] = &c->cube[0][0][0];
     layer[1] = &c->cube[1][0][0];
     layer[2] = &c->cube[1][1][0];
     layer[3] = &c->cube[0][1][0];
 }
 
-void getRLayer(TwoByTwo* c, Cubie* layer[4]){
+void getRLayer(RubiksCube* c, Cubie* layer[4]){
     layer[0] = &c->cube[0][0][1];
     layer[1] = &c->cube[1][0][1];
     layer[2] = &c->cube[1][1][1];
     layer[3] = &c->cube[0][1][1];
 }
 
-void getFLayer(TwoByTwo* c, Cubie* layer[4]){
+void getFLayer(RubiksCube* c, Cubie* layer[4]){
     layer[0] = &c->cube[1][0][0];
     layer[1] = &c->cube[1][1][0];
     layer[2] = &c->cube[1][1][1];
     layer[3] = &c->cube[1][0][1];
 }
 
-void getBLayer(TwoByTwo* c, Cubie* layer[4]){
+void getBLayer(RubiksCube* c, Cubie* layer[4]){
     layer[0] = &c->cube[0][0][0];
     layer[1] = &c->cube[0][1][0];
     layer[2] = &c->cube[0][1][1];
     layer[3] = &c->cube[0][0][1];
 }
 
-void RotateCubiesU(TwoByTwo* cube){
+void RotateCubiesU(RubiksCube* cube){
     //printf("Rotating Cubies U\n");
     Cubie tmp0 = cube->cube[0][1][0];
     Cubie tmp1 = cube->cube[0][1][1];
@@ -150,7 +172,7 @@ void RotateCubiesU(TwoByTwo* cube){
     //printf("Done Rotating Cubies U\n");
 }
 
-void RotateCubiesD(TwoByTwo* cube){
+void RotateCubiesD(RubiksCube* cube){
     Cubie tmp0 = cube->cube[0][0][0];
     Cubie tmp1 = cube->cube[0][0][1];
     Cubie tmp2 = cube->cube[1][0][1];
@@ -162,7 +184,7 @@ void RotateCubiesD(TwoByTwo* cube){
     cube->cube[1][0][0] = tmp0;
 }
 
-void RotateCubiesL(TwoByTwo* cube){
+void RotateCubiesL(RubiksCube* cube){
     Cubie tmp0 = cube->cube[0][0][0];
     Cubie tmp1 = cube->cube[1][0][0];
     Cubie tmp2 = cube->cube[1][1][0];
@@ -174,7 +196,7 @@ void RotateCubiesL(TwoByTwo* cube){
     cube->cube[0][1][0] = tmp0;
 }
 
-void RotateCubiesR(TwoByTwo* cube){
+void RotateCubiesR(RubiksCube* cube){
     Cubie tmp0 = cube->cube[0][0][1];
     Cubie tmp1 = cube->cube[1][0][1];
     Cubie tmp2 = cube->cube[1][1][1];
@@ -186,7 +208,7 @@ void RotateCubiesR(TwoByTwo* cube){
     cube->cube[0][1][1] = tmp2;
 }
 
-void RotateCubiesF(TwoByTwo* cube){
+void RotateCubiesF(RubiksCube* cube){
     Cubie tmp0 = cube->cube[1][0][0];
     Cubie tmp1 = cube->cube[1][1][0];
     Cubie tmp2 = cube->cube[1][1][1];
@@ -198,7 +220,7 @@ void RotateCubiesF(TwoByTwo* cube){
     cube->cube[1][0][1] = tmp2; 
 }
 
-void RotateCubiesB(TwoByTwo* cube){
+void RotateCubiesB(RubiksCube* cube){
     Cubie tmp0 = cube->cube[0][0][0];
     Cubie tmp1 = cube->cube[0][1][0];
     Cubie tmp2 = cube->cube[0][1][1];
@@ -294,38 +316,38 @@ void UpdateCubies(Cubie* Layer[4], char l){
     //printf("Done updating cubies\n");
 }
 
-void U(TwoByTwo* c){
+void U(RubiksCube* c){
     Cubie* ULayer[4];
     getULayer(c, ULayer);
     UpdateCubies(ULayer, 'U');
     RotateCubiesU(c);
 }
 
-void D(TwoByTwo* c){
+void D(RubiksCube* c){
     Cubie* DLayer[4];
     getDLayer(c, DLayer);
     UpdateCubies(DLayer, 'D');
     RotateCubiesD(c);
 }
-void L(TwoByTwo* c){
+void L(RubiksCube* c){
     Cubie* LLayer[4];
     getLLayer(c, LLayer);
     UpdateCubies(LLayer, 'L');
     RotateCubiesL(c);
 }
-void R(TwoByTwo* c){
+void R(RubiksCube* c){
     Cubie* RLayer[4];
     getRLayer(c,RLayer);
     UpdateCubies(RLayer, 'R');
     RotateCubiesR(c);
 }
-void F(TwoByTwo* c){
+void F(RubiksCube* c){
     Cubie* FLayer[4];
     getFLayer(c, FLayer);
     UpdateCubies(FLayer, 'F');
     RotateCubiesF(c);
 }
-void B(TwoByTwo* c){
+void B(RubiksCube* c){
     Cubie* BLayer[4];
     getBLayer(c, BLayer);
     UpdateCubies(BLayer, 'B');
