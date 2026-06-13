@@ -15,3 +15,15 @@ target_include_directories(cube PRIVATE include)
 find_package(raylib REQUIRED)
 
 target_link_libraries(cube PRIVATE raylib)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_options(cube PRIVATE
+        -fsanitize=address
+        -fno-omit-frame-pointer
+        -g
+    )
+
+    target_link_options(cube PRIVATE
+        -fsanitize=address
+    )
+endif()

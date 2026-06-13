@@ -36,7 +36,7 @@ RubiksCube* init_nxn(int size){
     int x, y, z;
     RubiksCube *cube = malloc(sizeof(RubiksCube));
     printf("Making Rubik's cube of size n = %d\n", size);
-    cube->cube = malloc(size * sizeof(Cubie**)); //seg fault
+    cube->cube = malloc(size * sizeof(Cubie**)); 
     for(z = 0; z < size; z++){
         cube->cube[z] = malloc(size * sizeof(int *));
         for(y = 0; y < size; y++){
@@ -113,13 +113,26 @@ void PrintLayer(Cubie** Layer){
             }
 }
 
-void getULayer(RubiksCube* c, Cubie* layer[4]){
-    printf("Getting U Layer\n");
+/*
+Cubie* layer[4] needs to be a Cubie** layer now becuase we dont know
+the size of a layer at compile time
+
+2x2
     layer[0] = &c->cube[0][1][0];
     layer[1] = &c->cube[0][1][1];
     layer[2] = &c->cube[1][1][1];
     layer[3] = &c->cube[1][1][0];
-    printf("Got U Layer\n");
+
+caller needs to free layer
+*/
+void getULayer(RubiksCube* c, Cubie** layer){
+    int x, z, size;
+    size = c->size;
+    for(x = 0; x < size; x++){
+        for(z = 0; z < size; z++){
+            layer[x][z] = c->cube[x][1][z];
+        }
+    }
 }
 
 void getDLayer(RubiksCube* c, Cubie* layer[4]){
@@ -157,19 +170,19 @@ void getBLayer(RubiksCube* c, Cubie* layer[4]){
     layer[3] = &c->cube[0][0][1];
 }
 
-void RotateCubiesU(RubiksCube* cube){
-    //printf("Rotating Cubies U\n");
-    Cubie tmp0 = cube->cube[0][1][0];
-    Cubie tmp1 = cube->cube[0][1][1];
-    Cubie tmp2 = cube->cube[1][1][1];
-    Cubie tmp3 = cube->cube[1][1][0];
-    
-    cube->cube[0][1][0] = tmp3;
-    cube->cube[0][1][1] = tmp0;
-    cube->cube[1][1][1] = tmp1;
-    cube->cube[1][1][0] = tmp2;
-
-    //printf("Done Rotating Cubies U\n");
+void RotateCubiesU(RubiksCube* cube, Cubie** ULayer){
+    int n = cube->size;
+    Cubie rotated[n][n];
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            rotated[j][n - 1 - i] = ULayer[i][j];
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cube->cube[i][1][j] = rotated[i][j];
+        }
+    }
 }
 
 void RotateCubiesD(RubiksCube* cube){
@@ -301,10 +314,11 @@ void updateSingleCubieB(Cubie* cubie){
     cubie->faces[3] = utmp;
 }
 
-void UpdateCubies(Cubie* Layer[4], char l){
+void UpdateCubies(RubiksCube *c, Cubie** Layer, char l){
     //printf("Updating Cubies\n");
-    int i;
-    for(i = 0; i < 4; i ++){
+    int i, size;
+    size = c->size;
+    for(i = 0; i < size; i ++){
         if(l == 'U'){updateSingleCubieU(Layer[i]);}
         if(l == 'D'){updateSingleCubieD(Layer[i]);}
         if(l == 'L'){updateSingleCubieL(Layer[i]);}
@@ -317,39 +331,50 @@ void UpdateCubies(Cubie* Layer[4], char l){
 }
 
 void U(RubiksCube* c){
-    Cubie* ULayer[4];
+    Cubie ** ULayer;
+    ULayer = malloc(sizeof(Cubie*)* c->size);
+    for(int i =0 ; i < c->size; i ++){
+        ULayer[i] = malloc(c->size*sizeof(Cubie));
+    }
+
     getULayer(c, ULayer);
-    UpdateCubies(ULayer, 'U');
-    RotateCubiesU(c);
+    UpdateCubies(c, ULayer, 'U');
+    RotateCubiesU(c, ULayer);
+
+
+    for(int i = 0; i < c->size; i++){
+        free(ULayer[i]);
+    }
+    free(ULayer);
 }
 
 void D(RubiksCube* c){
     Cubie* DLayer[4];
     getDLayer(c, DLayer);
-    UpdateCubies(DLayer, 'D');
+    UpdateCubies(c, DLayer, 'D');
     RotateCubiesD(c);
 }
 void L(RubiksCube* c){
     Cubie* LLayer[4];
     getLLayer(c, LLayer);
-    UpdateCubies(LLayer, 'L');
+    UpdateCubies(c, LLayer, 'L');
     RotateCubiesL(c);
 }
 void R(RubiksCube* c){
     Cubie* RLayer[4];
     getRLayer(c,RLayer);
-    UpdateCubies(RLayer, 'R');
+    UpdateCubies(c, RLayer, 'R');
     RotateCubiesR(c);
 }
 void F(RubiksCube* c){
     Cubie* FLayer[4];
     getFLayer(c, FLayer);
-    UpdateCubies(FLayer, 'F');
+    UpdateCubies(c, FLayer, 'F');
     RotateCubiesF(c);
 }
 void B(RubiksCube* c){
     Cubie* BLayer[4];
     getBLayer(c, BLayer);
-    UpdateCubies(BLayer, 'B');
+    UpdateCubies(c, BLayer, 'B');
     RotateCubiesB(c);
 }
