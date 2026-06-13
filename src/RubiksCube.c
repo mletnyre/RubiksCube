@@ -34,9 +34,9 @@ void printCube(RubiksCube* cube){
 
 RubiksCube* init_nxn(int size){
     int x, y, z;
-    RubiksCube *cube;
+    RubiksCube *cube = malloc(sizeof(RubiksCube));
     printf("Making Rubik's cube of size n = %d\n", size);
-    cube->cube = malloc(size * sizeof(Cubie**));
+    cube->cube = malloc(size * sizeof(Cubie**)); //seg fault
     for(z = 0; z < size; z++){
         cube->cube[z] = malloc(size * sizeof(int *));
         for(y = 0; y < size; y++){

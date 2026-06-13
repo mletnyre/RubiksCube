@@ -118,7 +118,7 @@ int main(int argc, char *argv[]){
     while ((opt = getopt(argc, argv, "n:")) != -1){
         switch(opt){
             case 'n':
-            nsecs = atoi(optarg);
+            nsecs = atoi(optarg); //optarg is in unistd.h
             tfind = 1;
             break;
         default:
@@ -127,6 +127,10 @@ int main(int argc, char *argv[]){
         }
     }
     
+    if(argc == 1){
+        size = 2;
+    }
+
     size = nsecs;
     
     RubiksCube* cube  = init_nxn(size);
