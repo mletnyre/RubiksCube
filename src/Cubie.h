@@ -3,6 +3,7 @@
 
 typedef struct Cubie{
     char faces[6];
+    int id;
 }Cubie;
 
 char getU(Cubie* c);

@@ -93,6 +93,7 @@ RubiksCube* init_nxn(int size){
                     setB(c, 'x');
                     setF(c, 'x');
                 }
+                c->id = x + (y * size) + (z * size * size);
                 cube->cube[z][y][x] = *c;
             }
         }
@@ -100,8 +101,8 @@ RubiksCube* init_nxn(int size){
     return cube;
 }
 
-void PrintLayer(Cubie** Layer){
-    for(int i = 0; i < 4; i++){
+void printCubie(Cubie** Layer){
+    for(int i = 0; i < 6; i++){
         printf("Printing out Layer %c, %c, %c, %c, %c, %c\n",
                 Layer[i]->faces[UP],
                 Layer[i]->faces[RIGHT],
@@ -130,7 +131,7 @@ void getULayer(RubiksCube* c, Cubie** layer){
     size = c->size;
     for(x = 0; x < size; x++){
         for(z = 0; z < size; z++){
-            layer[x][z] = c->cube[x][1][z];
+            layer[x][z] = c->cube[x][size-1][z];
         }
     }
 }
@@ -170,19 +171,33 @@ void getBLayer(RubiksCube* c, Cubie* layer[4]){
     layer[3] = &c->cube[0][0][1];
 }
 
+void printLayer(Cubie ** layer, int N) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            printf("%d ", layer[j][i].id);
+        }
+        printf("\n");
+    }
+}
+
 void RotateCubiesU(RubiksCube* cube, Cubie** ULayer){
+    printf("Rotating\n");
     int n = cube->size;
+    printLayer(ULayer, n);
     Cubie rotated[n][n];
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             rotated[j][n - 1 - i] = ULayer[i][j];
         }
     }
+
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            cube->cube[i][1][j] = rotated[i][j];
+            cube->cube[i][n-1][j] = rotated[i][j];
         }
     }
+    printf("done rotating\n");
+    printLayer(ULayer, n);
 }
 
 void RotateCubiesD(RubiksCube* cube){
