@@ -10,7 +10,14 @@
 #define BACK 4
 #define DOWN 0
 
-
+void printLayer(Cubie ** layer, int N) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            printf("%d ", layer[i][j].id);
+        }
+        printf("\n");
+    }
+}
 
 void printCube(RubiksCube* cube){
     printf("Printing Cube\n");
@@ -19,8 +26,8 @@ void printCube(RubiksCube* cube){
     for(z = 0; z < size; z++){
         for(y = 0; y < size; y++){
             for(x = 0; x < size; x++){
-                printf("Cubie at location (%d,%d,%d) looks like %c, %c, %c, %c, %c, %c\n",
-                x, y, z, 
+                printf("Cubie at location (%d,%d,%d) id: %d looks like %c, %c, %c, %c, %c, %c\n",
+                x, y, z, cube->cube[z][y][x].id,
                 cube->cube[z][y][x].faces[UP],
                 cube->cube[z][y][x].faces[RIGHT],
                 cube->cube[z][y][x].faces[FRONT],
@@ -44,9 +51,9 @@ RubiksCube* init_nxn(int size){
          }
     }
     cube->size = size;
-    for(z = 0; z < size; z++){
-        for(y = 0; y < size; y++){
-            for(x = 0; x < size; x++){
+    for(y = 0; y < size; y++){
+        for(x = 0; x < size; x++){
+            for(z = 0; z < size; z++){
                 printf("Initalizing cubie at location (%d,%d,%d)\n", x, y, z);
                 /*
                 if y is 0 then the u face is white
@@ -98,12 +105,13 @@ RubiksCube* init_nxn(int size){
             }
         }
     }
+    printCube(cube);
     return cube;
 }
 
 void printCubie(Cubie** Layer){
     for(int i = 0; i < 6; i++){
-        printf("Printing out Layer %c, %c, %c, %c, %c, %c\n",
+        printf("Printing out Cubie %c, %c, %c, %c, %c, %c\n",
                 Layer[i]->faces[UP],
                 Layer[i]->faces[RIGHT],
                 Layer[i]->faces[FRONT],
@@ -171,15 +179,6 @@ void getBLayer(RubiksCube* c, Cubie* layer[4]){
     layer[3] = &c->cube[0][0][1];
 }
 
-void printLayer(Cubie ** layer, int N) {
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            printf("%d ", layer[j][i].id);
-        }
-        printf("\n");
-    }
-}
-
 void RotateCubiesU(RubiksCube* cube, Cubie** ULayer){
     printf("Rotating\n");
     int n = cube->size;
@@ -188,12 +187,15 @@ void RotateCubiesU(RubiksCube* cube, Cubie** ULayer){
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             rotated[j][n - 1 - i] = ULayer[i][j];
+            // rotated[j][n - 1 - i] = ULayer[i][j];
+            // rotated[j][n - 1 - i] = ULayer[i][j];
         }
     }
 
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             cube->cube[i][n-1][j] = rotated[i][j];
+            ULayer[i][j] = rotated[i][j];
         }
     }
     printf("done rotating\n");
@@ -261,7 +263,7 @@ void RotateCubiesB(RubiksCube* cube){
 }
 
 void updateSingleCubieU(Cubie* cubie){
-    //printf("Cubie in %c %c %c %c\n", cubie->faces[1],cubie->faces[2],cubie->faces[3],cubie->faces[4]);
+    printf("Cubie in %c %c %c %c\n", cubie->faces[1],cubie->faces[2],cubie->faces[3],cubie->faces[4]);
     char rtmp = cubie->faces[1];
     char ftmp = cubie->faces[2];
     char ltmp = cubie->faces[3];
@@ -270,7 +272,7 @@ void updateSingleCubieU(Cubie* cubie){
     cubie->faces[2] = rtmp;
     cubie->faces[3] = ftmp;
     cubie->faces[4] = ltmp;
-    //printf("Cubie out %c %c %c %c\n", cubie->faces[1],cubie->faces[2],cubie->faces[3],cubie->faces[4]);
+    printf("Cubie out %c %c %c %c\n", cubie->faces[1],cubie->faces[2],cubie->faces[3],cubie->faces[4]);
 }
 
 void updateSingleCubieD(Cubie* cubie){
@@ -355,12 +357,12 @@ void U(RubiksCube* c){
     getULayer(c, ULayer);
     UpdateCubies(c, ULayer, 'U');
     RotateCubiesU(c, ULayer);
-
-
+    
     for(int i = 0; i < c->size; i++){
         free(ULayer[i]);
     }
     free(ULayer);
+    printCube(c);
 }
 
 void D(RubiksCube* c){
