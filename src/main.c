@@ -140,6 +140,7 @@ int main(int argc, char *argv[]){
     
     while (!WindowShouldClose()){
 
+        if (IsKeyPressed(KEY_S)){Scramble(cube);}
         if (IsKeyPressed(KEY_U)){U(cube);}
         if (IsKeyPressed(KEY_D)){D(cube);}
         if (IsKeyPressed(KEY_L)){L(cube);}
@@ -156,17 +157,13 @@ int main(int argc, char *argv[]){
         BeginMode3D(camera);
 
         DrawRubiksCube(cube);
-
-        EndMode3D();
-
-        EndDrawing();
         
+        EndMode3D();
+        
+        EndDrawing();
     }
-
+    
+    free(cube);
     CloseWindow();
     return 0;
-
-
-    printf("Exiting Program\n");
-    return 0; 
 }

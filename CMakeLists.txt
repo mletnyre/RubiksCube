@@ -8,6 +8,7 @@ add_executable(cube
     src/main.c
     src/Cubie.c
     src/RubiksCube.c
+    src/solver.c
 )
 
 target_include_directories(cube PRIVATE include)
