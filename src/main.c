@@ -6,6 +6,7 @@
 
 #include "Cubie.h"
 #include "RubiksCube.h"
+#include "solver.h"
 
 Color CharToColor(char face){
     switch (face)
@@ -87,19 +88,6 @@ void preformMove(int m, int d, RubiksCube* cube){
     if(d == 1){ preformMove(m, 0, cube);}
 }
 
-void Scramble(RubiksCube* cube){
-    printf("Scrambling\n");
-    int moves = 9; //wca scramble moves
-    int m;
-    int d;
-    for(int i = 0; i < moves; i++){
-        printf("Move: %d\n",i);
-        m = (rand() % 6);
-        d = (rand() % 10);
-        preformMove(m, d, cube);
-    }
-}
-
 int main(int argc, char *argv[]){
     int size;
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
@@ -133,21 +121,17 @@ int main(int argc, char *argv[]){
 
     size = nsecs;
     
-    RubiksCube* cube  = init_nxn(size);
-    printCube(cube);
-
-    
+    RubiksCube* cube  = init_nxn(size);    
     
     while (!WindowShouldClose()){
 
-        if (IsKeyPressed(KEY_S)){Scramble(cube);}
+        if (IsKeyPressed(KEY_S)){scramble(cube);}
         if (IsKeyPressed(KEY_U)){U(cube);}
         if (IsKeyPressed(KEY_D)){D(cube);}
         if (IsKeyPressed(KEY_L)){L(cube);}
         if (IsKeyPressed(KEY_R)){R(cube);}
         if (IsKeyPressed(KEY_F)){F(cube);}
         if (IsKeyPressed(KEY_B)){B(cube);}
-        if (IsKeyPressed(KEY_Q)){Scramble(cube);}
 
         BeginDrawing();
 

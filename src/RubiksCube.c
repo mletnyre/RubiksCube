@@ -327,7 +327,7 @@ void RotateCubiesB(RubiksCube* cube, Cubie** layer){
 }
 
 void updateSingleCubieU(Cubie* cubie){
-    printf("Cubie in %c %c %c %c\n", cubie->faces[1],cubie->faces[2],cubie->faces[3],cubie->faces[4]);
+    //printf("Cubie in %c %c %c %c\n", cubie->faces[1],cubie->faces[2],cubie->faces[3],cubie->faces[4]);
     char rtmp = cubie->faces[1];
     char ftmp = cubie->faces[2];
     char ltmp = cubie->faces[3];
@@ -336,7 +336,7 @@ void updateSingleCubieU(Cubie* cubie){
     cubie->faces[2] = rtmp;
     cubie->faces[3] = ftmp;
     cubie->faces[4] = ltmp;
-    printf("Cubie out %c %c %c %c\n", cubie->faces[1],cubie->faces[2],cubie->faces[3],cubie->faces[4]);
+    //printf("Cubie out %c %c %c %c\n", cubie->faces[1],cubie->faces[2],cubie->faces[3],cubie->faces[4]);
 }
 
 void updateSingleCubieD(Cubie* cubie){
