@@ -35,6 +35,7 @@ int regulationCubesMoveLength(int size){
     }
 }
 
+//this function is gross i know
 void scramble(RubiksCube* cube){
     int m, i, moves, size;
 
@@ -42,10 +43,12 @@ void scramble(RubiksCube* cube){
 
     if(size < 8){moves = regulationCubesMoveLength(size);}
 
-    cube->scramble = malloc(sizeof(char)*moves*2);
+    cube->scramble = malloc(sizeof(char)*moves*3);
+    int prime, twice;
 
     for(i = 0; i < moves; i ++){
-        m = random() % 6;
+        m = random() % 18;
+        printf("%d\n", m);
         switch(m){
             case 0:     
                 U(cube);
@@ -71,7 +74,84 @@ void scramble(RubiksCube* cube){
                 B(cube);
                 cube->scramble[i] = 'B';
                 break;
+            case 6:     
+                U(cube);
+                cube->scramble[i] = 'U';
+                prime = 1;
+                break;
+            case 7: 
+                D(cube);
+                cube->scramble[i] = 'D';
+                prime = 1;
+                break;
+            case 8: 
+                R(cube);
+                cube->scramble[i] = 'R';
+                prime = 1;
+                break;
+            case 9: 
+                L(cube);
+                cube->scramble[i] = 'L';
+                prime = 1;
+                break;
+            case 10: 
+                F(cube);
+                cube->scramble[i] = 'F';
+                prime = 1;
+                break;
+            case 11: 
+                B(cube);
+                cube->scramble[i] = 'B';
+                prime = 1;
+                break;
+            case 12:     
+                U(cube);
+                cube->scramble[i] = 'U';
+                twice = 1;
+                break;
+            case 13: 
+                D(cube);
+                cube->scramble[i] = 'D';
+                twice = 1;
+                break;
+            case 14: 
+                R(cube);
+                cube->scramble[i] = 'R';
+                twice = 1;
+                break;
+            case 15: 
+                L(cube);
+                cube->scramble[i] = 'L';
+                twice = 1;
+                break;
+            case 16: 
+                F(cube);
+                cube->scramble[i] = 'F';
+                twice = 1;
+                break;
+            case 17: 
+                B(cube);
+                cube->scramble[i] = 'B';
+                twice = 1;
+                break;
         }
+        
+        if(prime == 1){
+            i++;
+            moves++;
+            cube->scramble[i] = '\'';
+            prime = 0;
+        }
+        if(twice == 1){
+            i++;
+            moves++;
+            cube->scramble[i] = '2';
+            twice = 0;
+        }
+        
+        i++;
+        moves++;
+        cube->scramble[i] = ' ';
     }
     cube->scramble[moves] = '\0';
     printf("Scramble %s\n", cube->scramble);

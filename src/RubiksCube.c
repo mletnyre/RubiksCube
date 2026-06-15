@@ -266,13 +266,10 @@ void RotateCubiesL(RubiksCube* cube, Cubie** layer){
             layer[i][j] = rotated[i][j];
         }
     }
-    printf("\n");
-    printLayer(layer,n);
 }
 
 void RotateCubiesR(RubiksCube* cube, Cubie** layer){
     int n = cube->size;
-    printLayer(layer, n);
     Cubie rotated[n][n];
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -287,7 +284,6 @@ void RotateCubiesR(RubiksCube* cube, Cubie** layer){
             layer[i][j] = rotated[i][j];
         }
     }
-    printLayer(layer, n);
 }
 
 void RotateCubiesF(RubiksCube* cube, Cubie** layer){
@@ -408,7 +404,6 @@ void UpdateCubies(RubiksCube *c, Cubie** Layer, char l){
             if(l == 'F'){updateSingleCubieF(&Layer[y][x]);}
             if(l == 'B'){updateSingleCubieB(&Layer[y][x]);}
         }
-
     }
     //printf("Done updating cubies\n");
 }
