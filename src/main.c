@@ -88,6 +88,17 @@ void preformMove(int m, int d, RubiksCube* cube){
     if(d == 1){ preformMove(m, 0, cube);}
 }
 
+void freeCube(RubiksCube* cube){
+    int x, y, z, size;
+    size = cube->size;
+    for(z = 0; z < size; z++){
+        free(cube->cube[z]);
+        for(y = 0; y < size; y++){
+            free(cube->cube[z][y]);
+         }
+    }
+}
+
 int main(int argc, char *argv[]){
     int size;
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
@@ -125,19 +136,20 @@ int main(int argc, char *argv[]){
     
     while (!WindowShouldClose()){
 
-        if (IsKeyPressed(KEY_Q)){scramble(cube);}
-        if (IsKeyPressed(KEY_R)){U(cube);}
-        if (IsKeyPressed(KEY_T)){D(cube);}
-        if (IsKeyPressed(KEY_Y)){L(cube);}
-        if (IsKeyPressed(KEY_U)){R(cube);}
-        if (IsKeyPressed(KEY_I)){F(cube);}
-        if (IsKeyPressed(KEY_O)){B(cube);}
-        if (IsKeyPressed(KEY_F)){Uprime(cube);}
-        if (IsKeyPressed(KEY_G)){Dprime(cube);}
-        if (IsKeyPressed(KEY_H)){Lprime(cube);}
-        if (IsKeyPressed(KEY_J)){Rprime(cube);}
+        if (IsKeyPressed(KEY_Q) && cube->scrambleLen == 0){scramble(cube);}
+        if (IsKeyPressed(KEY_Z) && cube->scrambleLen != 0){reverseScramble(cube);}
+        if (IsKeyPressed(KEY_G)){F(cube);}
+        if (IsKeyPressed(KEY_T)){U(cube);}
+        if (IsKeyPressed(KEY_H)){R(cube);}
+        if (IsKeyPressed(KEY_B)){D(cube);}
+        if (IsKeyPressed(KEY_F)){L(cube);}
+        if (IsKeyPressed(KEY_Y)){B(cube);}
         if (IsKeyPressed(KEY_K)){Fprime(cube);}
-        if (IsKeyPressed(KEY_L)){Bprime(cube);}
+        if (IsKeyPressed(KEY_I)){Uprime(cube);}
+        if (IsKeyPressed(KEY_L)){Rprime(cube);}
+        if (IsKeyPressed(KEY_COMMA)){Dprime(cube);}
+        if (IsKeyPressed(KEY_J)){Lprime(cube);}
+        if (IsKeyPressed(KEY_O)){Bprime(cube);}
 
         BeginDrawing();
 
@@ -153,7 +165,7 @@ int main(int argc, char *argv[]){
         EndDrawing();
     }
     
-    free(cube);
+    //freeCube(cube);
     CloseWindow();
     return 0;
 }

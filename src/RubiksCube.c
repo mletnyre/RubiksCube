@@ -42,6 +42,7 @@ void printCube(RubiksCube* cube){
 RubiksCube* init_nxn(int size){
     int x, y, z;
     RubiksCube *cube = malloc(sizeof(RubiksCube));
+    cube->scrambleLen = 0;
     printf("Making Rubik's cube of size n = %d\n", size);
     cube->cube = malloc(size * sizeof(Cubie**)); 
     for(z = 0; z < size; z++){

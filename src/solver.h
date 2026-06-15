@@ -4,5 +4,6 @@
 #include "RubiksCube.h"
 
 void scramble(RubiksCube* cube);
+void reverseScramble(RubiksCube* cube);
 
 #endif //SOLVER_H

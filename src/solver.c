@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <unistd.h> //this may not work on windows? its late idk 
 
 
 /*
@@ -161,4 +163,52 @@ void scramble(RubiksCube* cube){
     }
     cube->scramble[moves] = '\0';
     printf("Scramble %s\n", cube->scramble);
+    cube->scrambleLen = moves;
+}
+
+void processMove(RubiksCube* cube, char* move){
+         if(strcmp(move, "U")  == 0){ printf("processing a move rn frfr \n"); Uprime(cube);}
+    else if(strcmp(move, "D")  == 0){ printf("processing a move rn frfr \n"); Dprime(cube);}
+    else if(strcmp(move, "R")  == 0){ printf("processing a move rn frfr \n"); Rprime(cube);}
+    else if(strcmp(move, "L")  == 0){ printf("processing a move rn frfr \n"); Lprime(cube);}
+    else if(strcmp(move, "B")  == 0){ printf("processing a move rn frfr \n"); Bprime(cube);}
+    else if(strcmp(move, "F")  == 0){ printf("processing a move rn frfr \n"); Fprime(cube);}
+    else if(strcmp(move, "U'") == 0){ printf("processing a move rn frfr \n"); U(cube);}
+    else if(strcmp(move, "D'") == 0){ printf("processing a move rn frfr \n"); D(cube);}
+    else if(strcmp(move, "R'") == 0){ printf("processing a move rn frfr \n"); R(cube);}
+    else if(strcmp(move, "L'") == 0){ printf("processing a move rn frfr \n"); L(cube);}
+    else if(strcmp(move, "B'") == 0){ printf("processing a move rn frfr \n"); B(cube);}
+    else if(strcmp(move, "F'") == 0){ printf("processing a move rn frfr \n"); F(cube);}
+    else if(strcmp(move, "U2") == 0){ printf("processing a move rn frfr \n"); U(cube); U(cube);}
+    else if(strcmp(move, "D2") == 0){ printf("processing a move rn frfr \n"); D(cube); D(cube);}
+    else if(strcmp(move, "R2") == 0){ printf("processing a move rn frfr \n"); R(cube); R(cube);}
+    else if(strcmp(move, "L2") == 0){ printf("processing a move rn frfr \n"); L(cube); L(cube);}
+    else if(strcmp(move, "B2") == 0){ printf("processing a move rn frfr \n"); B(cube); B(cube);}
+    else if(strcmp(move, "F2") == 0){ printf("processing a move rn frfr \n"); F(cube); F(cube);}
+}
+
+void reverseScramble(RubiksCube* cube){
+    char* scramble = cube->scramble;
+    int i;
+    char v;
+    char move[3];
+    for(i = cube->scrambleLen-1; i >= 0; i--){
+        v = scramble[i];
+        if(v == ' ') continue;
+
+        if(v == '\'' || v == '2'){
+            move[1] = v;
+            move[0] = scramble[i-1];
+            move[2] = '\0';
+            i--;
+        }
+        else{
+            move[0] = v;
+            move[1] = '\0';
+        }
+        processMove(cube, move);
+        printf("Processing Move: %s\n", move);
+    }
+    free(cube->scramble);
+    cube->scrambleLen = 0;
 }

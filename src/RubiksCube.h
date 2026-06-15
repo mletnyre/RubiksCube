@@ -7,6 +7,7 @@ typedef struct RubiksCube{
     Cubie ***cube;
     int size; //n by n
     char* scramble;
+    int scrambleLen;
 
 }RubiksCube;
 
