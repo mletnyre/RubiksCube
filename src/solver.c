@@ -75,61 +75,67 @@ void scramble(RubiksCube* cube){
                 cube->scramble[i] = 'B';
                 break;
             case 6:     
-                U(cube);
+                Uprime(cube);
                 cube->scramble[i] = 'U';
                 prime = 1;
                 break;
             case 7: 
-                D(cube);
+                Dprime(cube);
                 cube->scramble[i] = 'D';
                 prime = 1;
                 break;
             case 8: 
-                R(cube);
+                Rprime(cube);
                 cube->scramble[i] = 'R';
                 prime = 1;
                 break;
             case 9: 
-                L(cube);
+                Lprime(cube);
                 cube->scramble[i] = 'L';
                 prime = 1;
                 break;
             case 10: 
-                F(cube);
+                Fprime(cube);
                 cube->scramble[i] = 'F';
                 prime = 1;
                 break;
             case 11: 
-                B(cube);
+                Bprime(cube);
                 cube->scramble[i] = 'B';
                 prime = 1;
                 break;
             case 12:     
+                U(cube);
                 U(cube);
                 cube->scramble[i] = 'U';
                 twice = 1;
                 break;
             case 13: 
                 D(cube);
+                D(cube);
                 cube->scramble[i] = 'D';
                 twice = 1;
                 break;
             case 14: 
+                R(cube);
                 R(cube);
                 cube->scramble[i] = 'R';
                 twice = 1;
                 break;
             case 15: 
                 L(cube);
+                L(cube);
                 cube->scramble[i] = 'L';
                 twice = 1;
                 break;
             case 16: 
                 F(cube);
+                F(cube);
                 cube->scramble[i] = 'F';
                 twice = 1;
                 break;
             case 17: 
+                B(cube);
                 B(cube);
                 cube->scramble[i] = 'B';
                 twice = 1;

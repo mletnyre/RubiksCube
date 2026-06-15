@@ -467,3 +467,72 @@ void B(RubiksCube* c){
     RotateCubiesB(c,BLayer);
     freeLayer(BLayer, c->size);
 }
+
+
+void Uprime(RubiksCube* c){
+    Cubie ** ULayer = mallocLayer(c->size); 
+    getULayer(c, ULayer);
+    UpdateCubies(c, ULayer, 'U');
+    UpdateCubies(c, ULayer, 'U');
+    UpdateCubies(c, ULayer, 'U');
+    RotateCubiesU(c, ULayer);
+    RotateCubiesU(c, ULayer);
+    RotateCubiesU(c, ULayer);
+    freeLayer(ULayer, c->size);
+}
+
+void Dprime(RubiksCube* c){
+    Cubie** DLayer = mallocLayer(c->size); 
+    getDLayer(c, DLayer);
+    UpdateCubies(c, DLayer, 'D');
+    RotateCubiesD(c, DLayer);
+    UpdateCubies(c, DLayer, 'D');
+    RotateCubiesD(c, DLayer);
+    UpdateCubies(c, DLayer, 'D');
+    RotateCubiesD(c, DLayer);
+    freeLayer(DLayer, c->size);
+}
+void Lprime(RubiksCube* c){
+    Cubie** LLayer = mallocLayer(c->size); 
+    getLLayer(c, LLayer);
+    UpdateCubies(c, LLayer, 'L');
+    RotateCubiesL(c, LLayer);
+    UpdateCubies(c, LLayer, 'L');
+    RotateCubiesL(c, LLayer);
+    UpdateCubies(c, LLayer, 'L');
+    RotateCubiesL(c, LLayer);
+    freeLayer(LLayer, c->size);
+}
+void Rprime(RubiksCube* c){
+    Cubie** RLayer = mallocLayer(c->size); 
+    getRLayer(c,RLayer);
+    UpdateCubies(c, RLayer, 'R');
+    RotateCubiesR(c,RLayer);
+    UpdateCubies(c, RLayer, 'R');
+    RotateCubiesR(c,RLayer);
+    UpdateCubies(c, RLayer, 'R');
+    RotateCubiesR(c,RLayer);
+    freeLayer(RLayer, c->size);
+}
+void Fprime(RubiksCube* c){
+    Cubie** FLayer = mallocLayer(c->size); 
+    getFLayer(c, FLayer);
+    UpdateCubies(c, FLayer, 'F');
+    RotateCubiesF(c,FLayer);
+    UpdateCubies(c, FLayer, 'F');
+    RotateCubiesF(c,FLayer);
+    UpdateCubies(c, FLayer, 'F');
+    RotateCubiesF(c,FLayer);
+    freeLayer(FLayer, c->size);
+}
+void Bprime(RubiksCube* c){
+    Cubie** BLayer = mallocLayer(c->size);  
+    getBLayer(c, BLayer);
+    UpdateCubies(c, BLayer, 'B');
+    RotateCubiesB(c,BLayer);
+    UpdateCubies(c, BLayer, 'B');
+    RotateCubiesB(c,BLayer);
+    UpdateCubies(c, BLayer, 'B');
+    RotateCubiesB(c,BLayer);
+    freeLayer(BLayer, c->size);
+}

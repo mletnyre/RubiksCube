@@ -125,13 +125,19 @@ int main(int argc, char *argv[]){
     
     while (!WindowShouldClose()){
 
-        if (IsKeyPressed(KEY_S)){scramble(cube);}
-        if (IsKeyPressed(KEY_U)){U(cube);}
-        if (IsKeyPressed(KEY_D)){D(cube);}
-        if (IsKeyPressed(KEY_L)){L(cube);}
-        if (IsKeyPressed(KEY_R)){R(cube);}
-        if (IsKeyPressed(KEY_F)){F(cube);}
-        if (IsKeyPressed(KEY_B)){B(cube);}
+        if (IsKeyPressed(KEY_Q)){scramble(cube);}
+        if (IsKeyPressed(KEY_R)){U(cube);}
+        if (IsKeyPressed(KEY_T)){D(cube);}
+        if (IsKeyPressed(KEY_Y)){L(cube);}
+        if (IsKeyPressed(KEY_U)){R(cube);}
+        if (IsKeyPressed(KEY_I)){F(cube);}
+        if (IsKeyPressed(KEY_O)){B(cube);}
+        if (IsKeyPressed(KEY_F)){Uprime(cube);}
+        if (IsKeyPressed(KEY_G)){Dprime(cube);}
+        if (IsKeyPressed(KEY_H)){Lprime(cube);}
+        if (IsKeyPressed(KEY_J)){Rprime(cube);}
+        if (IsKeyPressed(KEY_K)){Fprime(cube);}
+        if (IsKeyPressed(KEY_L)){Bprime(cube);}
 
         BeginDrawing();
 
