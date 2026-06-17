@@ -47,98 +47,98 @@ void scramble(RubiksCube* cube){
 
     cube->scramble = malloc(sizeof(char)*moves*3);
     int prime, twice;
-
+    int in =0;
     for(i = 0; i < moves; i ++){
         m = random() % 18;
         printf("%d\n", m);
         switch(m){
             case 0:     
-                U(cube);
+                U(cube, in);
                 cube->scramble[i] = 'U';
                 break;
             case 1: 
-                D(cube);
+                D(cube, in);
                 cube->scramble[i] = 'D';
                 break;
             case 2: 
-                R(cube);
+                R(cube, in );
                 cube->scramble[i] = 'R';
                 break;
             case 3: 
-                L(cube);
+                L(cube, in);
                 cube->scramble[i] = 'L';
                 break;
             case 4: 
-                F(cube);
+                F(cube, in);
                 cube->scramble[i] = 'F';
                 break;
             case 5: 
-                B(cube);
+                B(cube, in);
                 cube->scramble[i] = 'B';
                 break;
             case 6:     
-                Uprime(cube);
+                Uprime(cube, in);
                 cube->scramble[i] = 'U';
                 prime = 1;
                 break;
             case 7: 
-                Dprime(cube);
+                Dprime(cube, in);
                 cube->scramble[i] = 'D';
                 prime = 1;
                 break;
             case 8: 
-                Rprime(cube);
+                Rprime(cube, in );
                 cube->scramble[i] = 'R';
                 prime = 1;
                 break;
             case 9: 
-                Lprime(cube);
+                Lprime(cube, in);
                 cube->scramble[i] = 'L';
                 prime = 1;
                 break;
             case 10: 
-                Fprime(cube);
+                Fprime(cube, in);
                 cube->scramble[i] = 'F';
                 prime = 1;
                 break;
             case 11: 
-                Bprime(cube);
+                Bprime(cube, in);
                 cube->scramble[i] = 'B';
                 prime = 1;
                 break;
             case 12:     
-                U(cube);
-                U(cube);
+                U(cube, in);
+                U(cube, in);
                 cube->scramble[i] = 'U';
                 twice = 1;
                 break;
             case 13: 
-                D(cube);
-                D(cube);
+                D(cube, in);
+                D(cube, in);
                 cube->scramble[i] = 'D';
                 twice = 1;
                 break;
             case 14: 
-                R(cube);
-                R(cube);
+                R(cube, in);
+                R(cube, in);
                 cube->scramble[i] = 'R';
                 twice = 1;
                 break;
             case 15: 
-                L(cube);
-                L(cube);
+                L(cube, in );
+                L(cube, in );
                 cube->scramble[i] = 'L';
                 twice = 1;
                 break;
             case 16: 
-                F(cube);
-                F(cube);
+                F(cube, in);
+                F(cube, in);
                 cube->scramble[i] = 'F';
                 twice = 1;
                 break;
             case 17: 
-                B(cube);
-                B(cube);
+                B(cube, in);
+                B(cube, in);
                 cube->scramble[i] = 'B';
                 twice = 1;
                 break;
@@ -166,25 +166,27 @@ void scramble(RubiksCube* cube){
     cube->scrambleLen = moves;
 }
 
+
 void processMove(RubiksCube* cube, char* move){
-         if(strcmp(move, "U")  == 0){ printf("processing a move rn frfr \n"); Uprime(cube);}
-    else if(strcmp(move, "D")  == 0){ printf("processing a move rn frfr \n"); Dprime(cube);}
-    else if(strcmp(move, "R")  == 0){ printf("processing a move rn frfr \n"); Rprime(cube);}
-    else if(strcmp(move, "L")  == 0){ printf("processing a move rn frfr \n"); Lprime(cube);}
-    else if(strcmp(move, "B")  == 0){ printf("processing a move rn frfr \n"); Bprime(cube);}
-    else if(strcmp(move, "F")  == 0){ printf("processing a move rn frfr \n"); Fprime(cube);}
-    else if(strcmp(move, "U'") == 0){ printf("processing a move rn frfr \n"); U(cube);}
-    else if(strcmp(move, "D'") == 0){ printf("processing a move rn frfr \n"); D(cube);}
-    else if(strcmp(move, "R'") == 0){ printf("processing a move rn frfr \n"); R(cube);}
-    else if(strcmp(move, "L'") == 0){ printf("processing a move rn frfr \n"); L(cube);}
-    else if(strcmp(move, "B'") == 0){ printf("processing a move rn frfr \n"); B(cube);}
-    else if(strcmp(move, "F'") == 0){ printf("processing a move rn frfr \n"); F(cube);}
-    else if(strcmp(move, "U2") == 0){ printf("processing a move rn frfr \n"); U(cube); U(cube);}
-    else if(strcmp(move, "D2") == 0){ printf("processing a move rn frfr \n"); D(cube); D(cube);}
-    else if(strcmp(move, "R2") == 0){ printf("processing a move rn frfr \n"); R(cube); R(cube);}
-    else if(strcmp(move, "L2") == 0){ printf("processing a move rn frfr \n"); L(cube); L(cube);}
-    else if(strcmp(move, "B2") == 0){ printf("processing a move rn frfr \n"); B(cube); B(cube);}
-    else if(strcmp(move, "F2") == 0){ printf("processing a move rn frfr \n"); F(cube); F(cube);}
+    int in = 0;
+         if(strcmp(move, "U")  == 0){ printf("processing a move rn frfr \n"); Uprime(cube, in);}
+    else if(strcmp(move, "D")  == 0){ printf("processing a move rn frfr \n"); Dprime(cube, in);}
+    else if(strcmp(move, "R")  == 0){ printf("processing a move rn frfr \n"); Rprime(cube, in);}
+    else if(strcmp(move, "L")  == 0){ printf("processing a move rn frfr \n"); Lprime(cube, in);}
+    else if(strcmp(move, "B")  == 0){ printf("processing a move rn frfr \n"); Bprime(cube, in);}
+    else if(strcmp(move, "F")  == 0){ printf("processing a move rn frfr \n"); Fprime(cube, 0);}
+    else if(strcmp(move, "U'") == 0){ printf("processing a move rn frfr \n"); U(cube, in);}
+    else if(strcmp(move, "D'") == 0){ printf("processing a move rn frfr \n"); D(cube, in);}
+    else if(strcmp(move, "R'") == 0){ printf("processing a move rn frfr \n"); R(cube, in);}
+    else if(strcmp(move, "L'") == 0){ printf("processing a move rn frfr \n"); L(cube, in);}
+    else if(strcmp(move, "B'") == 0){ printf("processing a move rn frfr \n"); B(cube, in);}
+    else if(strcmp(move, "F'") == 0){ printf("processing a move rn frfr \n"); F(cube, 0);}
+    else if(strcmp(move, "U2") == 0){ printf("processing a move rn frfr \n"); U(cube, in); U(cube, in);}
+    else if(strcmp(move, "D2") == 0){ printf("processing a move rn frfr \n"); D(cube, in); D(cube, in);}
+    else if(strcmp(move, "R2") == 0){ printf("processing a move rn frfr \n"); R(cube, in); R(cube, in);}
+    else if(strcmp(move, "L2") == 0){ printf("processing a move rn frfr \n"); L(cube, in); L(cube, in);}
+    else if(strcmp(move, "B2") == 0){ printf("processing a move rn frfr \n"); B(cube, in); B(cube, in);}
+    else if(strcmp(move, "F2") == 0){ printf("processing a move rn frfr \n"); F(cube, 0); F(cube, 0);}
 }
 
 void reverseScramble(RubiksCube* cube){

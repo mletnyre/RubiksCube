@@ -76,19 +76,6 @@ int DrawRubiksCube(RubiksCube* Cube){
     return 0;
 }
 
-void preformMove(int m, int d, RubiksCube* cube){
-    switch (m)
-    {
-    case 0:D(cube);break;
-    case 1:L(cube);break;
-    case 2:R(cube);break;
-    case 3:F(cube);break;
-    case 4:B(cube);break;
-    case 5:U(cube);break;
-    }
-    if(d == 1){ preformMove(m, 0, cube);}
-}
-
 void freeCube(RubiksCube* cube){
     free(cube);
 }
@@ -138,11 +125,15 @@ int main(int argc, char *argv[]){
         size = 2;
     }
 
-    size = nsecs;
+    // no cubes smaller than 2x2 or larger than 9x9
+    if(nsecs > 9) { size = 9;}
+    else if(nsecs < 2) {size = 2;}
+    else {size = nsecs;}
     
     RubiksCube* cube  = init_nxn(size);    
     
     while (!WindowShouldClose()){
+        size = cube->size;
 
         //scramble
         if (IsKeyPressed(KEY_Q) && cube->scrambleLen == 0){scramble(cube);}
@@ -152,19 +143,63 @@ int main(int argc, char *argv[]){
         if (IsKeyPressed(KEY_PAGE_UP)) { cube = upSizeCube(cube); }
         if (IsKeyPressed(KEY_PAGE_DOWN)) { cube = downSizeCube(cube); }
 
+        if(IsKeyDown(KEY_ONE) && size >= 4){
+            if (IsKeyPressed(KEY_G)){F(cube, 1);}
+            if (IsKeyPressed(KEY_T)){U(cube, 1);}
+            if (IsKeyPressed(KEY_H)){R(cube, 1);}
+            if (IsKeyPressed(KEY_B)){D(cube, 1);}
+            if (IsKeyPressed(KEY_F)){L(cube, 1);}
+            if (IsKeyPressed(KEY_Y)){B(cube, 1);}
+            if (IsKeyPressed(KEY_K)){Fprime(cube, 1);}
+            if (IsKeyPressed(KEY_I)){Uprime(cube, 1);}
+            if (IsKeyPressed(KEY_L)){Rprime(cube, 1);}
+            if (IsKeyPressed(KEY_COMMA)){Dprime(cube, 1);}
+            if (IsKeyPressed(KEY_J)){Lprime(cube, 1);}
+            if (IsKeyPressed(KEY_O)){Bprime(cube, 1);}
+        }
+        
+        else if(IsKeyDown(KEY_TWO) && size >= 6){
+            if (IsKeyPressed(KEY_G)){F(cube, 2);}
+            if (IsKeyPressed(KEY_T)){U(cube, 2);}
+            if (IsKeyPressed(KEY_H)){R(cube, 2);}
+            if (IsKeyPressed(KEY_B)){D(cube, 2);}
+            if (IsKeyPressed(KEY_F)){L(cube, 2);}
+            if (IsKeyPressed(KEY_Y)){B(cube, 2);}
+            if (IsKeyPressed(KEY_K)){Fprime(cube,2 );}
+            if (IsKeyPressed(KEY_I)){Uprime(cube,2);}
+            if (IsKeyPressed(KEY_L)){Rprime(cube,2);}
+            if (IsKeyPressed(KEY_COMMA)){Dprime(cube,2);}
+            if (IsKeyPressed(KEY_J)){Lprime(cube,2);}
+            if (IsKeyPressed(KEY_O)){Bprime(cube,2);}
+        } 
+        else if(IsKeyDown(KEY_THREE) && size >= 8){
+            if (IsKeyPressed(KEY_G)){F(cube, 3);}
+            if (IsKeyPressed(KEY_T)){U(cube,3);}
+            if (IsKeyPressed(KEY_H)){R(cube,3);}
+            if (IsKeyPressed(KEY_B)){D(cube,3);}
+            if (IsKeyPressed(KEY_F)){L(cube,3);}
+            if (IsKeyPressed(KEY_Y)){B(cube,3);}
+            if (IsKeyPressed(KEY_K)){Fprime(cube, 0);}
+            if (IsKeyPressed(KEY_I)){Uprime(cube,3);}
+            if (IsKeyPressed(KEY_L)){Rprime(cube,3);}
+            if (IsKeyPressed(KEY_COMMA)){Dprime(cube,3);}
+            if (IsKeyPressed(KEY_J)){Lprime(cube,3);}
+            if (IsKeyPressed(KEY_O)){Bprime(cube,3);}
+        }
+
         //move 
-        if (IsKeyPressed(KEY_G)){F(cube);}
-        if (IsKeyPressed(KEY_T)){U(cube);}
-        if (IsKeyPressed(KEY_H)){R(cube);}
-        if (IsKeyPressed(KEY_B)){D(cube);}
-        if (IsKeyPressed(KEY_F)){L(cube);}
-        if (IsKeyPressed(KEY_Y)){B(cube);}
-        if (IsKeyPressed(KEY_K)){Fprime(cube);}
-        if (IsKeyPressed(KEY_I)){Uprime(cube);}
-        if (IsKeyPressed(KEY_L)){Rprime(cube);}
-        if (IsKeyPressed(KEY_COMMA)){Dprime(cube);}
-        if (IsKeyPressed(KEY_J)){Lprime(cube);}
-        if (IsKeyPressed(KEY_O)){Bprime(cube);}
+        else if (IsKeyPressed(KEY_G)){F(cube, 0);}
+        else if (IsKeyPressed(KEY_T)){U(cube, 0);}
+        else if (IsKeyPressed(KEY_H)){R(cube, 0);}
+        else if (IsKeyPressed(KEY_B)){D(cube, 0);}
+        else if (IsKeyPressed(KEY_F)){L(cube, 0);}
+        else if (IsKeyPressed(KEY_Y)){B(cube, 0);}
+        else if (IsKeyPressed(KEY_K)){Fprime(cube, 0);}
+        else if (IsKeyPressed(KEY_I)){Uprime(cube,0);}
+        else if (IsKeyPressed(KEY_L)){Rprime(cube,0);}
+        else if (IsKeyPressed(KEY_COMMA)){Dprime(cube,0);}
+        else if (IsKeyPressed(KEY_J)){Lprime(cube,0);}
+        else if (IsKeyPressed(KEY_O)){Bprime(cube,0);}
 
         BeginDrawing();
 
