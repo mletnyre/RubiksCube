@@ -102,6 +102,7 @@ RubiksCube* downSizeCube(RubiksCube* cube){
 
 RubiksCube* upSizeCube(RubiksCube* cube){
     int size = cube->size;
+    if(size == 9){return cube;}
     freeCube(cube);
     return(init_nxn(size+1));
 }
