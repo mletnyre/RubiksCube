@@ -1,27 +1,23 @@
 #include <stdio.h>
+#include <CUnit/CUnit.h>
+#include <CUnit/Basic.h>
 
-#include "Cubie.h"
-#include "TwoByTwo.h"
+#include "../src/Cubie.h"
+#include "../src/RubiksCube.h"
 
-void printCubie(Cubie* cubie){
-    char r,f,l,b;
-    r = cubie->faces[1];
-    f = cubie->faces[2];
-    l = cubie->faces[3];
-    b = cubie->faces[4];
-    printf("Cubie: %c,%c,%c,%c\n",r,f,l,b);
+void test_addition(void){
+    CU_ASSERT(2+2 == 4);
 }
 
 int main(){
-    Cubie* cubie;
-    init_cubbie(cubie, 'x','x','x','o','b','w');
-    updateSingleCubieU(cubie);
-    printCubie(cubie);
-    updateSingleCubieU(cubie);
-    printCubie(cubie);
-    updateSingleCubieU(cubie);
-    printCubie(cubie);
-    updateSingleCubieU(cubie);
-    printCubie(cubie);
-    return 0;
+    CU_initialize_registry();
+    CU_pSuite suite = CU_add_suite("Suite_1", NULL, NULL);
+    CU_add_test(suite, "test of addition", test_addition);
+    CU_basic_set_mode(CU_BRM_VERBOSE);
+    CU_basic_run_tests();
+    
+    //get the number of tests failed and return that number, if its non-zero we dont build the main executable
+    unsigned int failures = CU_get_number_of_tests_failed();
+    CU_cleanup_registry();
+    return (failures > 0) ? 1 : 0;
 }

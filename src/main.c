@@ -7,6 +7,7 @@
 #include "Cubie.h"
 #include "RubiksCube.h"
 #include "solver.h"
+#include "main.h"
 
 Color CharToColor(char face){
     switch (face)
@@ -89,14 +90,20 @@ void preformMove(int m, int d, RubiksCube* cube){
 }
 
 void freeCube(RubiksCube* cube){
-    int x, y, z, size;
-    size = cube->size;
-    for(z = 0; z < size; z++){
-        free(cube->cube[z]);
-        for(y = 0; y < size; y++){
-            free(cube->cube[z][y]);
-         }
-    }
+    free(cube);
+}
+
+RubiksCube* downSizeCube(RubiksCube* cube){
+    int size = cube->size;
+    if(size == 2){return cube;}
+    freeCube(cube);
+    return(init_nxn(size-1));
+}
+
+RubiksCube* upSizeCube(RubiksCube* cube){
+    int size = cube->size;
+    freeCube(cube);
+    return(init_nxn(size+1));
 }
 
 int main(int argc, char *argv[]){
@@ -136,8 +143,15 @@ int main(int argc, char *argv[]){
     
     while (!WindowShouldClose()){
 
+        //scramble
         if (IsKeyPressed(KEY_Q) && cube->scrambleLen == 0){scramble(cube);}
         if (IsKeyPressed(KEY_Z) && cube->scrambleLen != 0){reverseScramble(cube);}
+
+        //util
+        if (IsKeyPressed(KEY_PAGE_UP)) { cube = upSizeCube(cube); }
+        if (IsKeyPressed(KEY_PAGE_DOWN)) { cube = downSizeCube(cube); }
+
+        //move 
         if (IsKeyPressed(KEY_G)){F(cube);}
         if (IsKeyPressed(KEY_T)){U(cube);}
         if (IsKeyPressed(KEY_H)){R(cube);}
