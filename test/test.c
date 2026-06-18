@@ -2,17 +2,27 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 
+#include "testCubies.h"
 #include "../src/Cubie.h"
 #include "../src/RubiksCube.h"
+#include "../src/RubiksCubeInternal.h"
 
-void test_addition(void){
-    CU_ASSERT(2+2 == 4);
+void CubiesSuitefunc(){
+    CU_pSuite CubiesSuite = CU_add_suite("Cubies Suite", NULL, NULL);
+    //test cubie moves
+    CU_add_test(CubiesSuite, "test update single cubie u", test_updateSingleCubieU);
+    CU_add_test(CubiesSuite, "test update single cubie d", test_updateSingleCubieD);
+    CU_add_test(CubiesSuite, "test update single cubie d", test_updateSingleCubieF);
+    CU_add_test(CubiesSuite, "test update single cubie d", test_updateSingleCubieB);
+    CU_add_test(CubiesSuite, "test update single cubie d", test_updateSingleCubieL);
+    CU_add_test(CubiesSuite, "test update single cubie d", test_updateSingleCubieR);
 }
 
 int main(){
     CU_initialize_registry();
-    CU_pSuite suite = CU_add_suite("Suite_1", NULL, NULL);
-    CU_add_test(suite, "test of addition", test_addition);
+    
+    CubiesSuitefunc(); 
+    
     CU_basic_set_mode(CU_BRM_VERBOSE);
     CU_basic_run_tests();
     

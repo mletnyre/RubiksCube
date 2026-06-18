@@ -1,4 +1,5 @@
 #include "RubiksCube.h"
+#include "RubiksCubeInternal.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -108,19 +109,6 @@ RubiksCube* init_nxn(int size){
     }
     printCube(cube);
     return cube;
-}
-
-void printCubie(Cubie** Layer){
-    for(int i = 0; i < 6; i++){
-        printf("Printing out Cubie %c, %c, %c, %c, %c, %c\n",
-                Layer[i]->faces[UP],
-                Layer[i]->faces[RIGHT],
-                Layer[i]->faces[FRONT],
-                Layer[i]->faces[LEFT],
-                Layer[i]->faces[BACK],
-                Layer[i]->faces[DOWN]);
-
-            }
 }
 
 /*

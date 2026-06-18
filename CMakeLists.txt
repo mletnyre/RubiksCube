@@ -37,6 +37,7 @@ add_executable(cube_tests
     src/Cubie.c
     src/RubiksCube.c
     src/solver.c
+    test/testCubies.c
 )
 
 target_include_directories(cube_tests PRIVATE include)
